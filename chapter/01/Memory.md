@@ -357,4 +357,4 @@ using memory_pool = legacy_memory_pool<legacy_memory_pool_allocator<default_allo
 
 ## 总结
 
-万里长征只走了第一步，继续努力！下一章可以实现变长数组`vector了。`
+万里长征只走了第一步，继续努力！下一章可以实现变长数组`vector`了。

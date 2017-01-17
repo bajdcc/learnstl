@@ -7,6 +7,8 @@ namespace clib
 {
     namespace collections
     {
+        using namespace type;
+
         namespace vector_config
         {
             // 最大空间
@@ -73,6 +75,12 @@ namespace clib
                 if (index >= used)
                     throw "Invalid index";
                 return std::forward<T>(data[index]); // 返回右值引用
+            }
+
+            // 获取最末尾元素
+            T&& top() const
+            {
+                return get(used - 1);
             }
 
             // 得到大小
