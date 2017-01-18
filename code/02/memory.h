@@ -9,7 +9,7 @@ namespace clib
     {
         using namespace type;
 
-        // Ä¬ÈÏµÄÄÚ´æ·ÖÅä²ßÂÔ
+        // é»˜è®¤çš„å†…å­˜åˆ†é…ç­–ç•¥
         template<size_t DefaultSize = 0x10000>
         class default_allocator
         {
@@ -55,43 +55,43 @@ namespace clib
             }
         };
 
-        // Ô­Ê¼ÄÚ´æ³Ø
+        // åŸå§‹å†…å­˜æ± 
         template<class Allocator, size_t DefaultSize = Allocator::DEFAULT_ALLOC_BLOCK_SIZE>
         class legacy_memory_pool
         {
-            // ¿é
+            // å—
             struct block
             {
-                size_t size; // Êı¾İ²¿·ÖµÄ´óĞ¡
-                uint flag;   // ²ÎÊı
-                block *prev; // Ç°Ö¸Õë
-                block *next; // ºóÖ¸Õë
+                size_t size; // æ•°æ®éƒ¨åˆ†çš„å¤§å°
+                uint flag;   // å‚æ•°
+                block *prev; // å‰æŒ‡é’ˆ
+                block *next; // åæŒ‡é’ˆ
             };
 
-            // ¿é²ÎÊı
+            // å—å‚æ•°
             enum block_flag
             {
                 BLOCK_USING = 0
             };
 
-            // ÄÚ´æ¹ÜÀí½Ó¿Ú
+            // å†…å­˜ç®¡ç†æ¥å£
             Allocator allocator;
 
-            // ¿éµÄÔªĞÅÏ¢²¿·ÖµÄ´óĞ¡
+            // å—çš„å…ƒä¿¡æ¯éƒ¨åˆ†çš„å¤§å°
             static const size_t BLOCK_SIZE = sizeof(block);
-            // ¿é´óĞ¡ÑÚÂë
+            // å—å¤§å°æ©ç 
             static const uint BLOCK_SIZE_MASK = BLOCK_SIZE - 1;
 
-            // ¿éÁ´±íÍ·Ö¸Õë
+            // å—é“¾è¡¨å¤´æŒ‡é’ˆ
             block *block_head;
-            // ÓÃÓÚÑ­»·±éÀúµÄÖ¸Õë
+            // ç”¨äºå¾ªç¯éå†çš„æŒ‡é’ˆ
             block *block_current;
-            // ¿ÕÏĞ¿éÊı
+            // ç©ºé—²å—æ•°
             size_t block_available_size;
 
             // ------------------------ //
 
-            // ¿é´óĞ¡¶ÔÆë
+            // å—å¤§å°å¯¹é½
             static size_t block_align(size_t size)
             {
                 if ((size & BLOCK_SIZE_MASK) == 0)
@@ -99,7 +99,7 @@ namespace clib
                 return (size / BLOCK_SIZE) + 1;
             }
 
-            // ¿é³õÊ¼»¯
+            // å—åˆå§‹åŒ–
             static void block_init(block *blk, size_t size)
             {
                 blk->size = size;
@@ -108,7 +108,7 @@ namespace clib
                 blk->next = nullptr;
             }
 
-            // ¿éÁ¬½Ó
+            // å—è¿æ¥
             static void block_connect(block *blk, block *new_blk)
             {
                 new_blk->prev = blk;
@@ -117,7 +117,7 @@ namespace clib
                 blk->next = new_blk;
             }
 
-            // ¶ş¿éºÏ²¢
+            // äºŒå—åˆå¹¶
             static size_t block_merge(block *blk, block *next)
             {
                 auto tmp = next->size + 1;
@@ -127,7 +127,7 @@ namespace clib
                 return tmp;
             }
 
-            // Èı¿éºÏ²¢
+            // ä¸‰å—åˆå¹¶
             static size_t block_merge(block *prev, block *blk, block *next)
             {
                 auto tmp = blk->size + next->size + 2;
@@ -137,7 +137,7 @@ namespace clib
                 return tmp;
             }
 
-            // ¿éÉèÖÃ²ÎÊı
+            // å—è®¾ç½®å‚æ•°
             static void block_set_flag(block *blk, block_flag flag, uint value)
             {
                 if (value)
@@ -150,7 +150,7 @@ namespace clib
                 }
             }
 
-            // ¿é»ñÈ¡²ÎÊı
+            // å—è·å–å‚æ•°
             static uint block_get_flag(block *blk, block_flag flag)
             {
                 return (blk->flag & (1 << flag)) != 0 ? 1 : 0;
@@ -158,14 +158,14 @@ namespace clib
 
             // ------------------------ //
 
-            // ´´½¨ÄÚ´æ³Ø
+            // åˆ›å»ºå†…å­˜æ± 
             void _create()
             {
                 block_head = allocator.template __alloc_array<block>(DEFAULT_ALLOC_BLOCK_SIZE);
                 _init();
             }
 
-            // ³õÊ¼»¯ÄÚ´æ³Ø
+            // åˆå§‹åŒ–å†…å­˜æ± 
             void _init()
             {
                 block_available_size = DEFAULT_ALLOC_BLOCK_SIZE - 1;
@@ -174,13 +174,13 @@ namespace clib
                 block_current = block_head;
             }
 
-            // Ïú»ÙÄÚ´æ³Ø
+            // é”€æ¯å†…å­˜æ± 
             void _destroy()
             {
                 allocator.__free_array(block_head);
             }
 
-            // ÉêÇëÄÚ´æ
+            // ç”³è¯·å†…å­˜
             void* _alloc(size_t size)
             {
                 if (size == 0)
@@ -204,50 +204,50 @@ namespace clib
                 return nullptr;
             }
 
-            // ²éÕÒ¿ÕÏĞ¿é
+            // æŸ¥æ‰¾ç©ºé—²å—
             void* alloc_free_block(size_t size)
             {
-                if (block_current->size == size) // ÉêÇëµÄ´óĞ¡ÕıºÃÊÇ¿ÕÏĞ¿é´óĞ¡
+                if (block_current->size == size) // ç”³è¯·çš„å¤§å°æ­£å¥½æ˜¯ç©ºé—²å—å¤§å°
                 {
                     return alloc_cur_block(size + 1);
                 }
-                // ÉêÇëµÄ¿Õ¼äĞ¡ÓÚ¿ÕÏĞ¿é´óĞ¡£¬½«¿ÕÏĞ¿é·ÖÁÑ
+                // ç”³è¯·çš„ç©ºé—´å°äºç©ºé—²å—å¤§å°ï¼Œå°†ç©ºé—²å—åˆ†è£‚
                 auto new_size = block_current->size - size - 1;
                 if (new_size == 0)
-                    return alloc_cur_block(size); // ·ÖÁÑºóµÄĞÂ¿é¿Õ¼ä¹ıµÍ£¬·ÅÆú·ÖÁÑ
+                    return alloc_cur_block(size); // åˆ†è£‚åçš„æ–°å—ç©ºé—´è¿‡ä½ï¼Œæ”¾å¼ƒåˆ†è£‚
                 block *new_blk = block_current + size + 1;
                 block_init(new_blk, new_size);
                 block_connect(block_current, new_blk);
                 return alloc_cur_block(size);
             }
 
-            // Ö±½ÓÊ¹ÓÃµ±Ç°µÄ¿ÕÏĞ¿é
+            // ç›´æ¥ä½¿ç”¨å½“å‰çš„ç©ºé—²å—
             void* alloc_cur_block(size_t size)
             {
-                // Ö±½ÓÊ¹ÓÃ¿ÕÏĞ¿é
-                block_set_flag(block_current, BLOCK_USING, 1); // ÉèÖÃ±êÖ¾Îª¿ÉÓÃ
+                // ç›´æ¥ä½¿ç”¨ç©ºé—²å—
+                block_set_flag(block_current, BLOCK_USING, 1); // è®¾ç½®æ ‡å¿—ä¸ºå¯ç”¨
                 block_current->size = size;
                 block_available_size -= size + 1;
                 auto cur = static_cast<void*>(block_current + 1);
-                block_current = block_current->next; // Ö¸ÏòºóÒ»¸ö¿é
+                block_current = block_current->next; // æŒ‡å‘åä¸€ä¸ªå—
                 return cur;
             }
 
-            // ÊÍ·ÅÄÚ´æ
+            // é‡Šæ”¾å†…å­˜
             bool _free(void* p)
             {
                 block *blk = static_cast<block*>(p);
-                --blk; // ×Ô¼õµÃµ½¿éµÄÔªĞÅÏ¢Í·
+                --blk; // è‡ªå‡å¾—åˆ°å—çš„å…ƒä¿¡æ¯å¤´
                 if (!verify_address(blk))
                     return false;
-                if (blk->next == blk) // Ö»ÓĞÒ»¸ö¿é
+                if (blk->next == blk) // åªæœ‰ä¸€ä¸ªå—
                 {
                     block_set_flag(blk, BLOCK_USING, 0);
                     return true;
                 }
-                if (blk->prev == blk->next && block_get_flag(blk->prev, BLOCK_USING) == 0) // Ö»ÓĞÁ½¸ö¿é
+                if (blk->prev == blk->next && block_get_flag(blk->prev, BLOCK_USING) == 0) // åªæœ‰ä¸¤ä¸ªå—
                 {
-                    _init(); // Á½¸ö¿é¶¼¿ÕÏĞ£¬Ö±½Ó³õÊ¼»¯
+                    _init(); // ä¸¤ä¸ªå—éƒ½ç©ºé—²ï¼Œç›´æ¥åˆå§‹åŒ–
                     return true;
                 }
                 auto is_prev_free = block_get_flag(blk->prev, BLOCK_USING) == 0 && blk->prev < blk;
@@ -274,7 +274,7 @@ namespace clib
                 return true;
             }
 
-            // ÑéÖ¤µØÖ·ÊÇ·ñºÏ·¨
+            // éªŒè¯åœ°å€æ˜¯å¦åˆæ³•
             bool verify_address(block *blk)
             {
                 if (blk < block_head || blk > block_head + DEFAULT_ALLOC_MEMORY_SIZE - 1)
@@ -282,32 +282,32 @@ namespace clib
                 return (blk->next->prev == blk) && (blk->prev->next == blk) && (block_get_flag(blk, BLOCK_USING) == 1);
             }
 
-            // ÖØĞÂ·ÖÅäÄÚ´æ
+            // é‡æ–°åˆ†é…å†…å­˜
             void* _realloc(void* p, uint newSize, uint clsSize)
             {
                 block *blk = static_cast<block*>(p);
-                --blk; // ×Ô¼õµÃµ½¿éµÄÔªĞÅÏ¢Í·
+                --blk; // è‡ªå‡å¾—åˆ°å—çš„å…ƒä¿¡æ¯å¤´
                 if (!verify_address(blk))
                     return nullptr;
-                auto size = block_align(newSize * clsSize); // ¼ÆËãĞÂµÄÄÚ´æ´óĞ¡
+                auto size = block_align(newSize * clsSize); // è®¡ç®—æ–°çš„å†…å­˜å¤§å°
                 auto _new = _alloc(size);
                 if (!_new)
                 {
-                    // ¿Õ¼ä²»×ã
+                    // ç©ºé—´ä¸è¶³
                     _free(blk);
                     return nullptr;
                 }
                 auto oldSize = blk->size;
-                memmove(_new, p, sizeof(block) * __min(oldSize, size)); // ÒÆ¶¯ÄÚ´æ
+                memmove(_new, p, sizeof(block) * __min(oldSize, size)); // ç§»åŠ¨å†…å­˜
                 _free(p);
                 return _new;
             }
 
         public:
 
-            // Ä¬ÈÏµÄ¿é×ÜÊı
+            // é»˜è®¤çš„å—æ€»æ•°
             static const size_t DEFAULT_ALLOC_BLOCK_SIZE = DefaultSize;
-            // Ä¬ÈÏµÄÄÚ´æ×ÜÁ¿
+            // é»˜è®¤çš„å†…å­˜æ€»é‡
             static const size_t DEFAULT_ALLOC_MEMORY_SIZE = BLOCK_SIZE * DEFAULT_ALLOC_BLOCK_SIZE;
 
             legacy_memory_pool()
@@ -375,7 +375,7 @@ namespace clib
             }
         };
 
-        // »ùÓÚÔ­Ê¼ÄÚ´æ³ØµÄÄÚ´æ·ÖÅä²ßÂÔ
+        // åŸºäºåŸå§‹å†…å­˜æ± çš„å†…å­˜åˆ†é…ç­–ç•¥
         template<class Allocator = default_allocator<>, size_t DefaultSize = Allocator::DEFAULT_ALLOC_BLOCK_SIZE>
         class legacy_memory_pool_allocator
         {

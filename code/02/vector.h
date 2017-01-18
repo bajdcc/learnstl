@@ -11,33 +11,33 @@ namespace clib
 
         namespace vector_config
         {
-            // ×î´ó¿Õ¼ä
+            // æœ€å¤§ç©ºé—´
             static const size_t FULL_SIZE = 0x100000;
-            // ¹²ÓÃÄÚ´æ³Ø
+            // å…±ç”¨å†…å­˜æ± 
             static memory::memory_pool<FULL_SIZE> mem;
 
-            // Ä¬ÈÏ×ÜÈİÁ¿
+            // é»˜è®¤æ€»å®¹é‡
             static const size_t DEF_SIZE = 0x10;
-            // Ä¬ÈÏµİÔöÈİÁ¿
+            // é»˜è®¤é€’å¢å®¹é‡
             static const size_t ACC_SIZE = 0x10;
         }
 
-        // ÏòÁ¿£¨±ä³¤Êı×é£©
+        // å‘é‡ï¼ˆå˜é•¿æ•°ç»„ï¼‰
         template<class T>
         class vector
         {
             using data_t = T;
 
-            size_t capacity; // ËùÓĞ¿Õ¼ä
-            size_t used; // ÒÑÓÃ¿Õ¼ä
-            size_t acc; // Ã¿´ÎµİÔö´óĞ¡
+            size_t capacity; // æ‰€æœ‰ç©ºé—´
+            size_t used; // å·²ç”¨ç©ºé—´
+            size_t acc; // æ¯æ¬¡é€’å¢å¤§å°
 
-            data_t *data; // Êı¾İ
+            data_t *data; // æ•°æ®
 
             void extend()
             {
                 capacity += acc;
-                // ×¢Òâ£ºÀ©³äÈİÁ¿Ê±£¬Ô­ÓĞÊı¾İÊ§Ğ§£¡
+                // æ³¨æ„ï¼šæ‰©å……å®¹é‡æ—¶ï¼ŒåŸæœ‰æ•°æ®å¤±æ•ˆï¼
                 data = vector_config::mem.realloc(data, capacity);
             }
 
@@ -51,39 +51,39 @@ namespace clib
                 data = vector_config::mem.alloc_array<data_t>(capacity);
             }
 
-            // Ìí¼ÓĞÂÔªËØÖÁÄ©Î²
+            // æ·»åŠ æ–°å…ƒç´ è‡³æœ«å°¾
             void push(T&& obj)
             {
                 if (used >= capacity)
                 {
                     extend();
                 }
-                data[used++] = obj; // TÀàĞÍµÄ¸³Öµ¿½±´
+                data[used++] = obj; // Tç±»å‹çš„èµ‹å€¼æ‹·è´
             }
 
-            // µ¯³öÄ©Î²µÄÔªËØ
+            // å¼¹å‡ºæœ«å°¾çš„å…ƒç´ 
             T&& pop()
             {
                 if (used == 0)
                     throw "Empty vector";
-                return std::forward<T>(data[--used]); // ·µ»ØÓÒÖµÒıÓÃ
+                return std::forward<T>(data[--used]); // è¿”å›å³å€¼å¼•ç”¨
             }
 
-            // »ñÈ¡ÔªËØ
+            // è·å–å…ƒç´ 
             T&& get(size_t index) const
             {
                 if (index >= used)
                     throw "Invalid index";
-                return std::forward<T>(data[index]); // ·µ»ØÓÒÖµÒıÓÃ
+                return std::forward<T>(data[index]); // è¿”å›å³å€¼å¼•ç”¨
             }
 
-            // »ñÈ¡×îÄ©Î²ÔªËØ
+            // è·å–æœ€æœ«å°¾å…ƒç´ 
             T&& top() const
             {
                 return get(used - 1);
             }
 
-            // µÃµ½´óĞ¡
+            // å¾—åˆ°å¤§å°
             size_t size() const
             {
                 return used;

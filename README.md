@@ -17,6 +17,7 @@
 ## 目录
 
 - [第一章：内存管理](https://github.com/bajdcc/learnstl/blob/master/chapter/01/Memory.md)
+- [第二章：变长数组（一）](https://github.com/bajdcc/learnstl/blob/master/chapter/02/Vector_I.md)
 
 ## 走近STL
 
