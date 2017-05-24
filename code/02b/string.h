@@ -26,6 +26,13 @@ private:
         }
     }
 
+    /**
+     * 设置最后一个字符为零
+     */
+    void set_end() const {
+        const_cast<T*>(get_data())[get_length()] = '\0'; // 由于边界检查，只好出此下策 :(
+    }
+
 public:
     String() {}
 
@@ -188,6 +195,7 @@ public:
      */
     void add(const T &t) {
         (*this) += t;
+        set_end();
     }
 
     /**
@@ -204,9 +212,8 @@ public:
      * @param index 要删除的位置
      */
     void remove(int index) {
-        auto &t = (*this)[get_length() - 1];
         data.remove(index);
-        t = '\0'; // 末尾置零
+        set_end();
     }
 
     /**
@@ -215,9 +222,8 @@ public:
      * @param len 删除的字符串长度
      */
     void remove(int index, int len) {
-        auto &t = (*this)[get_length() - len];
         data.remove(index, len);
-        t = '\0'; // 末尾置零
+        set_end();
     }
 
     /**
@@ -237,9 +243,8 @@ public:
      */
     void clear() {
         if (!is_empty()) {
-            auto &t = (*this)[0];
             data.clear();
-            t = '\0'; // 末尾置零
+            set_end();
         }
     }
 
@@ -521,5 +526,8 @@ public:
 
     // -------------------------------------------------
 };
+
+using StringA = String<char>;
+using StringW = String<wchar_t>;
 
 #endif
