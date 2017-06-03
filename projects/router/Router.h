@@ -14,25 +14,32 @@ class Router
 private:
     enum msg_t
     {
-        msg_init_req = 10,
+        msg_init_req = 1,
         msg_init_resp,
+        msg_init_router_req,
+        msg_ping,
     };
 
     struct msg
     {
         msg_t type;
-        int from, to;
-        int value;
+        int from, to, router;
+        int ttl;
         int delay;
+        int time;
+        unsigned long data;
     };
 
     enum task_t
     {
         task_exit = -1,
         task_start = 0,
-        task_init = msg_init_req,
-        task_init_resp = msg_init_resp,
+        task_sleep,
+        task_init,
+        task_init_resp,
         task_init_run,
+        task_init_run_resp,
+        task_running,
     };
 
     struct task
@@ -46,7 +53,7 @@ private:
 
     enum data_t
     {
-        data_init_dist = task_init,
+        data_init_dist,
         data_router,
     };
 
@@ -62,12 +69,11 @@ private:
     std::vector<std::vector<long>> times;
     long time{ 0 };
     int ttl{ 10 };
-	int timed_out{ 120 };
+    int timed_out{ 120 };
     int running_tasks{ 0 };
 
 public:
     Router();
-
     ~Router();
 
     int add_name(const std::string& name);
@@ -80,12 +86,19 @@ public:
 
 private:
     void new_task(task_t type, int id, void* value);
-    void send_msg(msg_t type, int from, int to, int value);
+    void pop_task(int id);
+    void send_msg(msg_t type, int from, int to, int ttl, unsigned long data);
     void deliver_msg(int id);
+    int get_router(int from, int to);
     void handle(int id);
     void handle_start(int id);
+    void handle_sleep(int id);
     void handle_init(int id);
     void handle_init_resp(int id);
+    void handle_init_run(int id);
+    void handle_init_run_resp(int id);
+    void handle_running(int id);
+    void handle_exit(int id);
 };
 
 
