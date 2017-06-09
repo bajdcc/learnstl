@@ -40,7 +40,7 @@ public:
 
     String(int size, const T &t) : data(size, t) {}
 
-    String(const String &s) : data(s.data) {}
+    String(const String<T> &s) : data(s.data) {}
 
     int get_length() const { return data.get_size(); }
 
