@@ -1,0 +1,2025 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>知乎专栏</title>
+    <base href="/">
+    <meta name="fragment" content="!">
+    <meta name="description" content="&#x77E5;&#x4E4E;&#x4E13;&#x680F;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <!--[if lt IE 9]>
+      <script src="https://z1.zhimg.com/components/es5-shim/es5-shim.js"></script>
+      <script src="https://z1.zhimg.com/components/html5shiv/dist/html5shiv.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+      <script src="https://z1.zhimg.com/components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className += ('ontouchstart' in window) ? ' touch' : ' no-touch'</script>
+    <link rel="stylesheet" href="https://z1.zhimg.com/styles/866e2d36.main.css">
+    <meta name="baidu-site-verification" content="U9zXUx8bxm">
+  </head>
+  <body ng-app="columnWebApp" ng-controller="AppCtrl" ng-class="pageClass">
+    <!--[if lt IE 8]>
+    <p class="browsehappy">
+      你正在使用一个<strong>过时</strong>的浏览器。请<a class="link" href="http://browsehappy.com">升级你的浏览器</a>以查看此页面。</p>
+    </p>
+    <![endif]-->
+
+    <div id="header-holder">
+        <div ng-include="navbarTemplateUrl"></div>
+    </div>
+
+    <div ui-alertbar="" data-alert="globalAlert" ui-sticky="" data-align="bottom" data-target="#header-holder"></div>
+
+    <!-- Add your site or application content here -->
+    <main class="main-container" ng-view=""></main>
+
+    <script src="https://z1.zhimg.com/scripts/8e93f487.angular.all.js"></script>
+
+    
+    <script src="https://z1.zhimg.com/jscompiled/e8482609.compiled.js"></script>
+    
+    <script src="https://z1.zhimg.com/scripts/25eb2c0f.scripts.js"></script>
+
+    <script>
+      var _gaq=[
+        ['_setAccount','UA-20961733-1'],
+        ['_setDomainName', 'zhihu.com'],
+        ['_setSampleRate','0.1'],
+        ['_trackPageview']
+      ];
+      window.onload=function(){/no-js/.test(document.documentElement.className)&&_gaq.push(['_trackEvent','columnwebapp','pageblank'])};
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';g.async=1;
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+
+  
+
+<!-- Begin Templates -->
+<script type="text/ng-template" id="/scripts/auth/dialog-activate.html">
+<div class="modal-dialog activate-dialog">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">激活帐号</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    <div class="activate-form">
+      <p class="message">为了正常使用知乎专栏，请前往设置激活帐号。</p>
+      <p class="center">
+        <a target="_blank" href="https://www.zhihu.com/settings/account" class="btn btn-blue">前往激活</a>
+      </p>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/auth/dialog.html">
+<div class="modal-dialog login-dialog">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">请登录</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    <div class="login-form-wrapper">
+      <a href="{{loginUrls.mail()}}" class="login-button btn btn-blue btn-lg">知乎帐号登录</a>
+    </div>
+    <a href="{{signupUrl()}}" class="signup">没有知乎帐号？现在注册 <i class="icon-ic_unfold"></i></a>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/avatar/avatar-editor.html">
+<div class="modal-dialog avatar-editor-dialog" ui-dialog="" tabindex="-1" open="show">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">头像裁剪</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content"></div>
+
+  <div class="modal-dialog-buttons">
+    <button name="cancel">取消</button>
+    <button name="yes" ng-click="submit($event)">确认</button>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/contribute/dialog.html">
+<div class="modal-dialog contribute-dialog" tabindex="-1">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">投稿</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content empty" ng-if="myPosts && !myPosts.length">
+    没有可以投稿到该专栏的文章。
+  </div>
+
+  <div class="empty modal-dialog-content" ng-if="!myPosts">
+    <div ui-spinner=""></div>
+  </div>
+
+  <div class="modal-dialog-content empty" ng-show="showSuccess">
+    <i class="icon-ic_prompt_done notice-success"></i>
+    文章已投递，被专栏收录后你会收到消息通知。
+  </div>
+
+
+  <div class="modal-dialog-content" ng-if="myPostsCount && !showSuccess">
+    <div class="description">选择要投稿到该专栏的文章，收到投稿后专栏编辑将审阅处理。</div>
+
+    <div class="selected-post" ng-show="selectedPost">
+      {{selectedPost.title}}
+      <i class="icon-ic_close" ng-click="removeSelectedPost()"></i>
+    </div>
+    <div class="mui-container-search" ng-hide="selectedPost">
+      <input class="mui-input js-input" ui-suggest="" suggest-options="suggestOptions" placeholder="搜索你的文章...">
+    </div>
+  </div>
+
+  <div class="modal-dialog-buttons" ng-if="myPostsCount && !showSuccess">
+    <button ng-disabled="!selectedPost" class="btn btn-blue btn-sm" name="yes" ng-click="submit()">确定</button>
+  </div>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/recommend/dialog-recommend.html">
+<div class="modal-dialog" tabindex="-1">
+    <div class="modal-dialog-title">
+        <span class="modal-dialog-title-text">推荐到知乎日报</span>
+        <span class="modal-dialog-title-close"></span>
+    </div>
+
+    <div class="modal-dialog-content share-dialog-content">
+        <div class="share-dialog-section">
+            {{title}}
+        </div>
+        <div class="share-dialog-section">
+            <textarea class="share-dialog-textarea" placeholder="推荐理由、备注或其他（选填）" ng-model="reason" autofocus=""></textarea>
+        </div>
+    </div>
+
+    <div class="modal-dialog-buttons">
+        <button name="cancel">取消</button>
+        <button name="yes" ng-click="submit()">推荐</button>
+    </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/report/dialog-report.html">
+<div class="modal-dialog report-dialog" tabindex="-1">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">{{config.title}}</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    <form class="report-form" name="reportForm">
+      <ul class="options clearfix">
+        <li ng-repeat="code in config.reasons">
+          <label><input ng-model="formData.reason" required="" value="{{code}}" name="reason" type="radio" class="mui-radio">{{Reasons[code]}}</label>
+        </li>
+      </ul>
+      <p class="error-container" ng-if="errorShow && reportForm.$invalid">
+        <span ng-if="reportForm.reason.$invalid" class="error">请选择举报理由</span>
+        <span ng-if="reportForm.detail.$invalid" class="error">举报理由为 2-100 字</span>
+      </p>
+      <p class="footnote"></p>
+    </form>
+  </div>
+
+  <div class="modal-dialog-buttons">
+    <button name="cancel">取消</button>
+    <button name="yes" ng-click="submit($event)">确认</button>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/tipjar/dialog-active.html">
+<div class="modal-dialog tipjar-activate-dialog" tabindex="-1" ng-init="agreed=true" ng-switch="post.tipjarState == 'activated'">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">想对读者说的话</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    <form name="activeForm">
+      <div class="active-description">
+        <input ng-model="post.tipjarTagLine" name="intro" class="mui-input" placeholder="{{defaultTagLine}}" word-max="20" autocomplete="off">
+        <div class="tips">
+          <div ng-if="activeForm.intro.$valid" class="right">{{post.tipjarTagLine | wordlen}}/20</div>
+          <div class="error right" ng-if="activeForm.intro.$error.wordMax">{{post.tipjarTagLine | wordlen}}/20</div>
+        </div>
+        <div class="agreement" ng-switch-when="false">
+          <label>
+            <input ng-model="$parent.agreed" type="checkbox" class="mui-checkbox-simple">
+            我已同意<a href="http://www.zhihu.com/terms/tipjar" target="_blank">《知乎赞赏功能使用协议》</a>
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-dialog-buttons">
+    <button name="cancel">取消</button>
+    <button name="yes" ng-click="submit($event)" ng-disabled="!agreed">
+      <span ng-switch-when="false">开启赞赏</span>
+      <span ng-switch-when="true">确定</span>
+    </button>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/tipjar/dialog-bind.html">
+<div class="modal-dialog tipjar-bind-dialog" tabindex="-1">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">开启赞赏</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    绑定微信后方可开启赞赏功能
+  </div>
+
+  <div class="modal-dialog-buttons">
+    <button name="cancel">取消</button>
+    <button name="yes" ng-click="bind()">前往绑定</button>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/tipjar/dialog-follow.html">
+<div class="modal-dialog tipjar-follow-dialog" tabindex="-1">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">关注公众号</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content clearfix">
+    <img alt="" src="/images/b9a4e02c.zhihu-official.jpg" class="tipjar-zh-qrcode">
+    <div class="description">
+      内测期间，请先关注「知乎」微信公众帐号，以便实时结算你的赞赏收入到微信零钱。
+    </div>
+  </div>
+
+  <div class="modal-dialog-buttons">
+    <div class="error" ng-if="errMsg">{{errMsg}}</div>
+    <button name="yes" ng-click="followed($event)">我已关注</button>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/tipjar/dialog-tip.html">
+<div class="modal-dialog tipjar-tip-dialog" tabindex="-1">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text"></span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content" ng-if="!showSuccess">
+    <div class="author">
+      <a href="{{post.author.profileUrl}}" target="_blank" data-title="{{post.author.name}}">
+        <img alt="{{post.author.name}}" ng-src="{{post.author.avatar | avatarUrl:26}}" class="avatar avatar-xs">
+        {{post.author.name}}
+      </a>
+    </div>
+    <div class="tipjar-tagline">{{post.tipjarTagLine}}</div>
+    <div class="amount-list" ng-hide="paying">
+      <button class="btn btn-red" ng-repeat="item in amountList" ng-click="selectAmount($event, $index)"><b>{{item}}</b> 元</button>
+    </div>
+    <div class="amount-custom" ng-hide="paying">
+      <div class="amount-custom-btn" ng-if="!customShow">
+        <a ng-click="showCustom()" href="javascript:;">自定义金额</a>
+      </div>
+      <div class="amount-custom-form" ng-if="customShow">
+        <form name="amountForm" action="" method="GET" ng-submit="handleDoTip($event, tip)">
+          <input ng-model="tip" name="tip" class="mui-input" placeholder="你想赞赏的金额（不超过 20000）" int-max="20000" required="" autocomplete="off">
+          <button type="submit" class="btn btn-blue btn-60_32" ng-disabled="amountForm.tip.$invalid">确认</button>
+          <div class="tips">
+            <div class="error" ng-if="amountForm.tip.$error.intMax">不能超过 20000 元</div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="amount-list amount-list-custom" ng-show="paying">
+      <button class="btn btn-red-fill"><b>{{amount}}</b> 元</button>
+    </div>
+    <div class="pay-spinner" ng-if="payLoading">
+      <div ui-spinner=""></div>
+    </div>
+    <div class="tipjar-payWechat" ng-if="paying && !payLoading && currentPaymentMethod === 'wechat'">
+      <p><i class="icon-ic_wechatpay"></i>微信支付</p>
+      <p ng-if="envType != 'wechat'">使用微信扫描二维码完成支付</p>
+      <div ui-spinner="" ng-if="wechatLoading"></div>
+      <div ng-if="!wechatLoading" id="PayQRCode"></div>
+    </div>
+    <div class="tipjar-payBalance" ng-if="paying && !payLoading && currentPaymentMethod === 'balance'">
+      <p><i class="icon-wallet"></i>使用余额（剩余 {{(balance.amount/100).toFixed(2)}}）</p>
+      <div class="pay-description">输入 6 位数字支付密码</div>
+      <ui-num-code code="payPassword.code"></ui-num-code>
+      <div class="error" ng-style="{'visibility': payError ? 'visible':'hidden'}">{{payError}}</div>
+      <div class="help">如忘记密码，请邮件联系 i@zhihu.com</div>
+    </div>
+    <div class="tipjar-paySMS" ng-if="paying && !payLoading && currentPaymentMethod === 'sms'">
+      <div class="pay-description">{{smsDescription}}</div>
+      <div class="sms-code-input">
+        <input ng-model="smsCode" class="mui-input" placeholder="输入 6 位验证码">
+        <button ng-disabled="sendingSMS" class="btn" ng-click="!sendingSMS && handleSendSMS()">{{ sendingSMS ? (sendingSMS + ' 秒后重试') : '发送验证码' }}</button>
+      </div>
+      <div class="footer">
+        <div class="error" ng-style="{'visibility': payError ? 'visible':'hidden'}">{{payError}}</div>
+        <button class="btn btn-blue btn-60_32" ng-disabled="!smsCode" ng-click="smsCode && handleSMSPay(smsCode)">确认</button>
+      </div>
+    </div>
+    <div class="tipjar-payMethods" ng-if="paying && !payLoading && currentPaymentMethod === 'both'">
+      <a class="wechat-pay" href="javascript:;" ng-click="handleWechatPay()"><i class="icon-ic_wechatpay"></i>微信支付</a>
+      <a class="balance-pay" ng-if="balance.enable" href="javascript:;" ng-click="handleBalancePay()"><i class="icon-wallet"></i>使用余额（剩余 {{(balance.amount/100).toFixed(2)}}）</a>
+      <a class="balance-pay disabled" ng-if="!balance.enable" href="javascript:;"><i class="icon-wallet"></i>使用余额（剩余 {{(balance.amount/100).toFixed(2)}}）</a>
+    </div>
+  </div>
+
+  <div class="modal-dialog-content tip-success-content" ng-if="showSuccess">
+    <i class="icon-ic_prompt_done notice-success"></i>
+    <div class="result-description">
+      已赞赏 <a href="{{post.author.profileUrl}}" target="_blank">{{post.author.name}}</a> {{amount}} 元
+    </div>
+    <div class="tipjar-share" ng-if="envType != 'wechat'">
+      <p class="description">
+        分享这篇超棒的文章
+      </p>
+      <div class="share-list">
+        <a href="javascript:;" ng-click="item.action()" class="menu-item" ng-repeat="item in shareItems" ng-class="item.className">
+          <i class="icon {{item.icon}}"></i>{{item.label}}
+          <div class="extra" ng-if="item.html" ng-bind-html="item.html"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-dialog-buttons">
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/scripts/tipjar/tipjar-user.html">
+<a href="{{user.profileUrl || 'javascript:;'}}" target="{{user.profileUrl ? '_blank': '_self'}}" data-title="{{user.name || '微信用户'}}" class="tipjaror" ng-switch="!!+user.slug">
+  <img ng-src="{{user.avatar | avatarUrl:26}}" alt="{{user.name}}" class="avatar avatar-xs" ng-switch-when="true">
+  <img alt="微信用户" src="https://pic3.zhimg.com/c47e615b8605938a955b68ee2e462c5e_m.png" class="avatar avatar-xs" ng-switch-when="false">
+</a>
+</script>
+
+<script type="text/ng-template" id="/scripts/tipjar/tipjar.html">
+<div class="tipjar-container" ng-class="{'owner-tipjar-container': ownPost(post)}" ng-switch="post.tipjarState == 'activated'" id="tipjar">
+  <div ng-switch-when="true">
+    <div class="tipjar-tagline">
+      「{{post.tipjarTagLine}}」
+      <a ng-if="ownPost(post)" href="javascript:;" ng-click="editTipjar()"><i class="icon-ic_column_edit"></i></a>
+    </div>
+    <div class="tipjar-button-container" ng-if="!ownPost(post)">
+      <button class="btn btn-red-fill" ng-click="tip()">赞赏</button>
+    </div>
+    <div class="tipjar-description" ng-if="!post.tipjarorCount" ng-switch="!!ownPost(post)">
+      <span ng-switch-when="false">还没有人赞赏，快来当第一个赞赏的人吧！</span>
+      <span ng-switch-when="true">还没有人赞赏。<br>你可以分享文章，让文章被更多人看到。</span>
+    </div>
+    <div class="tipjaror-list-container" ng-if="post.tipjarorCount">
+      <div class="tipjar-description"><b>{{post.tipjarorCount}}</b> 人赞赏<span ng-if="ownPost(post)">了 <b>{{tipjarAmount}}</b> 元</span></div>
+      <div class="tipjaror-list" ng-if="!tipjarors">
+        <ui-tipjar-user ng-repeat="user in post.lastestTipjarors"></ui-tipjar-user>
+        <a href="javascript:;" title="查看全部" class="more-tipjarors" ng-if="post.lastestTipjarors.length < post.tipjarorCount && !fetchTipjarorsPending" ng-click="viewAllTipjaror()">
+          <i class="icon-ic_like_more"></i>
+        </a>
+        <a class="more-tipjarors" ng-if="fetchTipjarorsPending">
+          <div ui-spinner="" class="half"></div>
+        </a>
+      </div>
+      <div class="tipjaror-list" ng-if="tipjarors">
+        <ui-tipjar-user ng-repeat="user in tipjarors"></ui-tipjar-user>
+      </div>
+    </div>
+  </div>
+  <div ng-switch-when="false" class="tipjar-activate">
+    <div class="tipjar-button-container">
+      <button class="btn btn-red-fill" ng-click="activeTipjar()">
+        <span ng-if="!activeStateLoading">开启赞赏</span>
+        <span ng-if="activeStateLoading">　　　　<span ui-spinner="" class="half"></span></span>
+
+      </button>
+    </div>
+    <div class="tipjar-description">
+      赞赏开启后，读者将可以付费支持你的创作。
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/403.html">
+<div class="server-error-container">
+  <div class="error-code">403</div>
+  <div class="error-description">抱歉，没有权限访问</div>
+  <div class="discover">
+    <a class="btn btn-blue btn-lg" href="/">返回专栏 · 发现 »</a>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/404.html">
+<div class="server-error-container">
+  <div class="error-code">404</div>
+  <div class="error-description">抱歉，没有找到该页面</div>
+  <div class="discover">
+    <a class="btn btn-blue btn-lg" href="/">返回专栏 · 发现 »</a>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/500.html">
+<div class="server-error-container">
+  <div class="error-code">500</div>
+  <div class="error-description">{{message || '服务器提了一个问题，请稍候再试。'}}</div>
+  <div class="discover">
+    <a class="btn btn-blue btn-lg" href="/">返回专栏 · 发现 »</a>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/column-about.html">
+<div class="main receptacle">
+  <h3>关于</h3>
+  <div class="header clearfix">
+    <div class="avatar-link">
+      <img class="avatar-big" alt="" ng-src="{{column.avatar | avatarUrl:100}}">
+    </div>
+    <div class="column-title">
+      <h1>{{column.name}}</h1>
+      <h2>{{column.intro}}</h2>
+    </div>
+  </div>
+  <div class="column-topics">
+    <ui-block-title>专栏话题</ui-block-title>
+    <p class="tags">
+      <span class="normal-tag-link" ng-repeat="topic in column.topics">{{topic.name}}</span>
+    </p>
+  </div>
+  <div class="column-description">
+    <ui-block-title>专栏介绍</ui-block-title>
+    <p ng-bind-html="column.description"></p>
+  </div>
+  <div class="editors">
+    <ui-block-title data-help="能发布文章并管理专栏。">编辑</ui-block-title>
+    <ul class="editor-list">
+      <ui-user-item ng-repeat="user in editors" user="user" column="column">
+    </ul>
+  </div>
+  <div class="authors" ng-if="authors.length">
+    <ui-block-title data-help="能发布文章或发布过文章。">作者</ui-block-title>
+    <ul class="author-list">
+      <ui-user-item ng-repeat="user in authors" user="user" column="column">
+    </ul>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/column-followers.html">
+<div class="main receptacle column-followers-main">
+
+  <h2 class="page-title">{{column.followersCount}} 人关注该专栏</h2>
+
+  <div ui-infinite="" data-source="source">
+
+    <p class="items-empty" ng-show="!source.pending && !followers.length">
+      <i class="icon" ng-class="{true: 'icon-error-500', false: 'icon-no-article'}[source.error]"></i>
+      {{source.error && '服务器提了一个问题，请稍候再试。' || '还没有关注者'}}
+    </p>
+
+    <ul class="column-followers clearfix">
+      <ui-user-item ng-repeat="user in followers" user="user">
+    </ul>
+
+  </div>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/column-item.html">
+<li class="column-list-item fx-item-fade">
+  <p class="avatar">
+    <a href="{{column.url}}">
+      <img alt="" ng-src="{{column.avatar | avatarUrl:48}}" class="avatar-mid">
+    </a>
+  </p>
+  <p class="title">
+    <a class="column-name" href="{{column.url}}">{{column.name}}</a>
+    <span ng-show="contributeInfo.state == 'need_approved'" class="bull">·</span>
+    <a ng-show="contributeInfo.state == 'need_approved'" href="javascript:;" class="cancel-contribute" ng-click="handleCancelContribute()">投稿中</a>
+  </p>
+  <p class="intro">{{column.intro | truncateHtml:64}}</p>
+  <a href="{{column.url}}" class="btn btn-green-nborder enter">进入专栏</a>
+</li>
+</script>
+
+<script type="text/ng-template" id="/views/column-request.html">
+<div class="top"></div>
+<div class="main receptacle" ng-if="me.pendingColumns.length">
+  <div class="column-request-alert">
+    <div>你的专栏创建申请正在受理中。同时只能申请一个专栏。</div>
+    <div>{{redirectTime}} 秒后跳转专栏首页</div>
+  </div>
+</div>
+<div ng-if="!me.pendingColumns.length" class="main receptacle">
+  <div ng-if="!me.isOrg || me.isOrgWhiteList">
+    <h2>申请创建专栏</h2>
+    <article class="description">
+      <p>
+        专栏旨在为特定主题下有持续创作及合作写作需求的用户提供写作工具，创建专栏需要进行申请，通过审核后即可使用。
+      </p>
+
+      <h5>申请人需满足以下要求：</h5>
+      <ul>
+        <li>专栏须由本人申请，不可代为申请；</li>
+        <li>申请帐号的用户信息需符合<a href="https://www.zhihu.com/question/19551824" target="_blank">《知乎用户信息管理规范》</a>；</li>
+        <li>90 天内在知乎站内无<a href="https://www.zhihu.com/question/19790711" target="_blank">《知乎社区管理规定》</a>中规定的违规行为。</li>
+      </ul>
+      <h5>申请专栏的内容方向：</h5>
+      <p class="nm">专栏需要有明确的写作方向，我们更欢迎专业方向的分享，部分方向暂时不接受申请。</p>
+      <p class="nm">专栏绑定的话题即代表专栏的写作方向，请不要绑定过于宽泛的话题。</p>
+      <ul>
+        <li>接受申请的方向：包括但不限于经济学、金融、互联网、科技、科学、心理学、饮食、旅游、家居、汽车等专业方向的内容；</li>
+        <li>不接受申请的方向： 包括但不限于涉及情感、两性、娱乐八卦、随笔、个人成长记录或成长心得、泛时政类（包括「军事」、「政治」、「热点事件」等话题）、与主流科学观点相悖（如养生、风水、星座、易经、八卦、命理、起名等内容）、可能影响他人利益（如寻医问药建议、心理咨询建议、P2P 金融、投资行情分析及投资操作建议等）或绑定过于宽泛的话题（如「生活」、「趣味」、「脑洞」等）。</li>
+      </ul>
+      <h5>申请专栏的相关背景：</h5>
+      <ul>
+        <li>专栏申请人需具备<b>与写作方向相关</b>的专业背景并在申请中注明；</li>
+        <li>相关背景描述可以是相关教育经历（就读院校、专业）、从业经历（就职单位、岗位）、取得的成就及荣誉，或者有相关的作品等等；</li>
+        <li>详细的背景资料说明将有助于通过专栏申请的审核；</li>
+        <li>注：除法律或有法律赋予权限的政府部门要求或事先得到用户明确授权等原因外，知乎保证不对外公开或向第三方透露用户申请专栏时提供的背景资料。
+        </li>
+      </ul>
+      <p>工作人员将在三个工作日内对专栏申请进行反馈。</p>
+    </article>
+
+
+
+    <div class="column-form" ng-form="requestForm">
+      <div class="setting-sec item-form-label-top column-name">
+        <div class="form-title"><label for="Name">专栏名字</label></div>
+        <div class="form-content" ui-form-linkage="" ng-model="column.name">
+          <input required="" ng-model="column.name" class="mui-input" name="name" id="Name" type="text" placeholder="填写你的专栏名字" word-max="20" max-width="330">
+          <div class="tips">
+            <div class="left">180 天内只能修改一次</div>
+            <div ng-if="requestForm.name.$valid" class="right">{{column.name | wordlen}}/20</div>
+            <div class="error right" ng-if="requestForm.name.$error.required && !requestForm.name.$pristine">必须填写专栏名</div>
+            <div class="error right" ng-if="requestForm.name.$error.wordMax">{{column.name | wordlen}}/20</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="setting-sec item-form-label-top column-topic">
+        <ui-block-title class="form-title block-title-wider block-title-no-underline" data-help="专栏话题即你计划的写作方向，申请通过后，专栏话题将不可修改。不同的写作方向可以分别申请多个专栏。">
+            <label for="Topics">专栏话题</label>
+        </ui-block-title>
+        <div class="form-content">
+          <div class="tag-suggestion-container" ui-tag-input="" holdertext="搜索话题" max-tags="3" suggest-options="suggestOptions" ng-model="column.topics">
+            <div class="tips-always" ng-show="showTopicTips">
+              <div class="left">申请通过后 30 天内无法更改</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="setting-sec item-form-label-top column-background">
+        <div class="form-title"><label for="Background">专业背景</label></div>
+        <div class="form-content" ui-form-linkage="" disable-auto-expand="" ng-model="column.bg">
+          <textarea required="" ng-model="column.bg" name="bg" ui-textarea-autogrow="" class="mui-input" placeholder="填写你的相关专业背景" word-max="250"></textarea>
+          <div class="tips">
+            <div ng-if="requestForm.bg.$valid" class="right">{{column.bg | wordlen}}/250</div>
+            <div class="error right" ng-if="requestForm.bg.$error.wordMax">{{column.bg | wordlen}}/250</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-buttons">
+        <a class="back" href="/">返回专栏·发现</a>
+        <button class="btn btn-blue" ng-disabled="requestForm.$invalid || submiting" ng-click="requestForm.$valid && !submiting && submit()">提交</button>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="me.isOrg && !me.isOrgWhiteList">
+    <h2>当前机构帐号开设专栏为测试阶段，暂不开放申请</h2>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/column-settings-author-item.html">
+<li class="ui-user-item" class="clearfix">
+  <a href="{{user.profileUrl}}" target="_blank" class="user-avatar">
+    <img class="avatar avatar-mid" ng-src="{{user.avatar | avatarUrl:48}}" alt="">
+  </a>
+  <div class="user-intro">
+    <a href="{{user.profileUrl}}" target="_blank">
+      <strong>{{user.name}}</strong>
+    </a>
+    <span ng-if="user.state == 'accepted'" class="bio">{{user.postsCount || 0}} 篇文章</span>
+    <span ng-if="user.state != 'accepted'" class="bio">已邀请，等待确认</span>
+  </div>
+  <div class="functions">
+    <a href="javascript:;" ng-click="showDMDialog(user)" class="" ng-if="user.slug != me.slug">私信</a>
+    <a class="cancel" confirm-message="确定取消邀请该用户？" confirm-title="管理权限" ng-if="user.state=='pending' && !disableManage" href="javascript:;" ui-confirm="cancelUserRole(user, $index)">取消邀请<i class="icon-ic_invite_cancel"></i></a>
+    <div class="permission" ng-if="user.state != 'pending' && user.role != 'creator' && !disableManage">
+      <span ng-click="toggleShowPermission(user)">修改权限<i class="icon-ic_unfold"></i></span>
+      <ul class="ui-suggest" ng-show="user.showPermission">
+        <li ng-if="user.role != 'editor'" confirm-message="确定变更该用户为编辑？编辑可直接发布文章、管理投稿请求、调整作者权限。" confirm-title="管理权限" ui-confirm="changeUserRole(user, 'editor', $index)" class="row">编辑</li>
+        <li ng-if="user.role != 'author'" confirm-message="确定变更该用户为作者？作者可直接发布文章。" confirm-title="管理权限" ui-confirm="changeUserRole(user, 'author', $index)" class="row">作者</li>
+        <li confirm-message="确定取消该用户的权限？" confirm-title="管理权限" ui-confirm="cancelUserRole(user, $index)" class="row">取消权限</li>
+      </ul>
+    </div>
+  </div>
+</li>
+</script>
+
+<script type="text/ng-template" id="/views/column-settings-authors.html">
+<div class="main receptacle column-settings">
+
+  <div class="tabs">
+    <div ng-include="'/views/settings/nav.html'"></div>
+  </div>
+
+  <div class="user-list-container">
+    <ui-block-title data-help="编辑可发布文章、管理投稿请求、调整作者权限。">编辑</ui-block-title>
+    <div class="invite" ng-if="column.creator.slug == me.slug">
+      <span class="trigger" ng-click="showSuggestPanel(1)">+ 邀请</span>
+      <div class="invite-panel ui-suggest mui-container-search" ng-show="suggestPanelType == 1">
+        <input ui-suggest="" type="text" placeholder="输入知乎用户" suggest-options="suggestOptionsEditor" class="mui-input mui-nborder">
+      </div>
+    </div>
+    <ul class="editor-list">
+      <ng-include ng-repeat="user in editors" src="'/views/column-settings-author-item.html'" ng-init="disableManage = column.creator.slug != me.slug"></ng-include>
+    </ul>
+
+  </div>
+  <div class="user-list-container">
+    <ui-block-title data-help="作者可发布文章。">作者</ui-block-title>
+    <div class="invite">
+      <span class="trigger" ng-click="showSuggestPanel(2)">+ 邀请</span>
+      <div class="invite-panel ui-suggest mui-container-search" ng-show="suggestPanelType ==2">
+        <input ui-suggest="" type="text" placeholder="输入知乎用户" suggest-options="suggestOptionsAuthor" class="mui-input mui-nborder">
+      </div>
+    </div>
+    <div class="empty" ng-if="fetched && !authors.length">尚无作者</div>
+    <ul class="editor-list" ng-if="authors.length">
+      <ng-include ng-repeat="user in authors" src="'/views/column-settings-author-item.html'"></ng-include>
+    </ul>
+  </div>
+</div>
+
+<div ui-direct-message="" show="showDM" user="dmUser"></div>
+</script>
+
+<script type="text/ng-template" id="/views/column-settings-contributes.html">
+<div class="main receptacle column-settings">
+
+  <div class="tabs">
+    <div ng-include="'/views/settings/nav.html'"></div>
+  </div>
+
+  <div class="settings-posts-container settings-contributes-posts-container" ui-infinite="" data-source="contributesSource">
+    <ul class="items draft-list" ng-if="contributesSource.count">
+      <li class="item" ng-repeat="c in contributes track by $index">
+        <div class="entry-title ellipsis"><a href="/p/{{c.targetPost.slug}}">{{c.targetPost.title || '无标题'}}</a></div>
+        <div class="entry-meta">
+          <a class="author" href="{{c.targetPost.author.profileUrl}}">{{c.targetPost.author.name}}</a>
+          <span class="bull">·</span>
+          <time ui-time="" datetime="{{c.targetPost.publishedTime}}" class="updated"></time>
+        </div>
+        <div class="functions">
+          <a ui-confirm="mute(c, $index)" confirm-message="确定忽略该投稿请求？" confirm-title="投稿处理" href="javascript:;" class="btn btn-grey-nborder">忽略</a>
+          <a href="/p/{{c.targetPost.slug}}" class="btn btn-green-nborder">进入审阅</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="list-empty" ng-if="!contributesSource.count && !contributesSource.pending">
+      <i class="icon-show icon-ic_no_contribute"></i>
+      <p>尚无待处理的投稿</p>
+    </div>
+  </div></div>
+</script>
+
+<script type="text/ng-template" id="/views/column-settings-posts.html">
+<div class="main receptacle column-settings">
+
+  <div class="tabs">
+    <div ng-include="'/views/settings/nav.html'"></div>
+  </div>
+
+  <div class="settings-posts-container" ui-pagination="" url="purl" data="posts" extra="extra" ng-if="purl" ng-show="loaded && extra.count" limit="20">
+    <ui-block-title>{{extra.count}} 篇文章</ui-block-title>
+    <ul class="items draft-list">
+      <li class="item fx-item-fade" ng-repeat="post in posts">
+        <div class="entry-title"><a href="/p/{{post.slug}}">{{post.title || '无标题'}}</a></div>
+        <div class="entry-meta">
+          <span class="author">{{post.author.name}}</span>
+          <span class="bull">·</span>
+          <time ui-time="" datetime="{{post.publishedTime}}" class="updated"></time>
+          <span ng-if="post.pin">
+            <span class="bull">·</span>
+            <a href="javascript:;" ui-confirm="cancelPin(post, $index)" confirm-message="确定取消置顶该文章？" confirm-title="取消置顶">取消置顶</a>
+          </span>
+          <span ng-if="!post.pin">
+            <span class="bull">·</span>
+            <a href="javascript:;" ui-confirm="pin(post, $index)" confirm-message="{{pinpost ? '已置顶过一篇文章，继续操作将替换上次置顶的文章。' : '确定置顶该文章？'}}" confirm-title="文章置顶">置顶</a>
+          </span>
+          <span>
+            <span class="bull">·</span>
+            <a href="javascript:;" ui-confirm="removeInclude(post, $index)" confirm-message="确定取消收录该文章？建议继续操作前先联系文章作者。" confirm-title="取消收录">取消收录</a>
+          </span>
+          <span ng-if="post.author.slug == me.slug">
+            <span class="bull">·</span>
+            <a href="/p/{{post.slug}}/edit">编辑</a>
+          </span>
+          <span ng-if="post.author.slug == me.slug">
+            <span class="bull">·</span>
+            <a ui-confirm="delete(post, $index)" confirm-message="确定删除该文章？" confirm-title="删除文章" href="javascript:;">删除</a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div ui-spinner="" ng-show="!loaded"></div>
+
+  <div class="list-empty" ng-show="loaded && !extra.count && !censors.length">
+    <i class="icon-show icon-ic_no_article"></i>
+    <p>尚未发布过文章</p>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/column-settings.html">
+<div class="main receptacle column-settings">
+
+  <div class="tabs">
+    <div ng-include="'/views/settings/nav.html'"></div>
+  </div>
+
+  <div class="setting-container">
+    <div class="column-form" novalidate="">
+      <div class="avatar-editing setting-sec">
+        <div class="upload-controls fileinput-button" data-file-upload="fileuploadOptions" ng-class="{progressing: active()}">
+          <div class="ui-progress centered fx-fade" ng-class="{'with-avatar': column.avatar.id}" ng-if="active()">
+            <div class="bar" ng-style="{width: num + '%'}" data-file-upload-progress="progress()"></div>
+          </div>
+
+          <div class="with-avatar">
+            <div class="avatar-preview">
+              <img ng-src="{{column.avatar | avatarUrl:200}}" class="avatar">
+            </div>
+          </div>
+
+          <input type="file" accept=".jpeg, .jpg, .png" name="picture">
+        </div>
+      </div>
+
+      <div class="basic-info setting-sec" ng-form="columnNameForm">
+        <div class="form-title with-margin">专栏名</div>
+        <div class="form-content" ui-form-linkage="" init-value="{{column.name}}" ng-model="column.name">
+          <div class="name">
+            <input required="" ng-model="column.name" name="name" class="mui-input" placeholder="填写专栏名字" max-width="368" word-max="20" ng-disabled="column.pendingName">
+            <div class="tips-always" ng-show="column.pendingName">
+              已将名称改为「{{column.pendingName}}」。该改动将在一个工作日内审核后生效。
+            </div>
+            <div class="tips" ng-show="!column.pendingName">
+              <div class="left">180 天内只能修改一次</div>
+              <div ng-if="columnNameForm.name.$valid" class="right">{{column.name | wordlen}}/20</div>
+              <div class="error right" ng-if="columnNameForm.name.$error.required">必须填写专栏名</div>
+              <div class="error right" ng-if="columnNameForm.name.$error.wordMax">{{column.name | wordlen}}/20</div>
+            </div>
+            <div class="save-btn" ng-show="!column.pendingName">
+              <button class="btn btn-grey-nborder btn-72_32" ng-click="cancel()">取消</button>
+              <button class="btn btn-blue btn-72_32" ng-disabled="columnNameForm.name.$invalid || columnNameForm.name.$pristine" ng-click="edit(columnNameForm)">保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="basic-info setting-sec" ng-switch="!!column.pendingTopics.length">
+        <div class="form-title">专栏话题</div>
+        <div class="form-content">
+          <div class="topics"> 
+            <div class="topics-input tags block-title-wider block-title-no-underline" ui-block-title="" data-help="专栏话题即专栏约定的写作方向，写作方向不支持更改。你可以申请另一个专栏来写新的写作方向。">
+              <a ng-if="column.pendingTopics.length" ng-repeat="topic in column.pendingTopics" class="tag-link" href="javascript:;">{{topic.name}}</a>
+              <a ng-if="!column.pendingTopics.length" ng-repeat="topic in column.topics" class="tag-link" href="javascript:;">{{topic.name}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="basic-info setting-sec" ng-form="columnSDescForm">
+        <div class="form-title with-margin">一句话简介</div>
+        <div class="form-content" ui-form-linkage="" init-value="{{column.intro}}" ng-model="column.intro">
+          <div class="short-description">
+            <input ng-model="column.intro" name="intro" class="mui-input" placeholder="向读者一句话介绍专栏（选填）" max-width="368" word-max="25">
+            <div class="tips">
+              <div ng-if="columnSDescForm.intro.$valid" class="right">{{column.intro | wordlen}}/25</div>
+              <div class="error right" ng-if="columnSDescForm.intro.$error.wordMax">{{column.intro | wordlen}}/25</div>
+            </div>
+          </div>
+          <div class="save-btn">
+            <button class="btn btn-grey-nborder btn-72_32" ng-click="cancel()">取消</button>
+            <button class="btn btn-blue btn-72_32" ng-disabled="columnSDescForm.intro.$invalid || columnSDescForm.intro.$pristine" ng-click="edit(columnSDescForm)">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="desc setting-sec" ng-form="columnDescForm">
+        <div class="form-title with-margin">专栏介绍</div>
+        <div class="form-content input-container" ui-form-linkage="" init-value="{{column.description}}" ng-model="column.description" disable-auto-expand="">
+          <textarea ui-textarea-autogrow="" ng-model="column.description" class="mui-input" placeholder="为「关于」页面添加一段专栏描述（选填）" name="description" max-width="368" word-max="500"></textarea>
+          <div class="tips">
+            <div ng-if="columnDescForm.description.$valid" class="right">{{column.description | wordlen}}/500</div>
+            <div class="error right" ng-if="columnDescForm.description.$error.wordMax">{{column.description | wordlen}}/500</div>
+          </div>
+          <div class="save-btn">
+            <button class="btn btn-grey-nborder btn-72_32" ng-click="cancel()">取消</button>
+            <button class="btn btn-blue btn-72_32" ng-disabled="columnDescForm.description.$invalid || columnDescForm.description.$pristine" ng-click="edit(columnDescForm)">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="url setting-sec" ng-form="columnUrlForm">
+        <div class="form-title with-margin">域名</div>
+        <div class="form-content" ui-form-linkage="" init-value="{{column.slug}}" ng-model="column.slug">
+          <span class="url-spine">zhuanlan.zhihu.com/</span>
+          <span class="input-container">
+            <input required="" ng-model="column.slug" name="slug" class="mui-input" placeholder="填写自定义域名" ng-minlength="5" ng-pattern="/^[-a-zA-Z0-9]+$/" unique-column-slug="" max-width="200">
+          </span>
+
+          <div class="tips">
+            <div class="left">域名只能修改一次</div>
+            <div class="error right" ng-if="columnUrlForm.slug.$error.required">必须填写自定义域名</div>
+            <div class="error right" ng-if="columnUrlForm.slug.$error.minlength">长度至少为五个字符</div>
+            <div class="error right" ng-if="columnUrlForm.slug.$error.pattern">只能使用字母、数字和短横线</div>
+            <div class="error right" ng-if="columnUrlForm.slug.$error.uniqueColumnSlug">此域名已经被占用</div>
+          </div>
+          <div class="save-btn">
+            <button class="btn btn-grey-nborder btn-72_32" ng-click="cancel()">取消</button>
+            <button class="btn btn-blue btn-72_32" ng-disabled="columnUrlForm.slug.$invalid || columnUrlForm.slug.$pristine" ng-click="edit(columnUrlForm)">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="contribution setting-sec">
+        <div class="form-title">接受投稿</div>
+        <div class="form-content">
+          <label class="mintro" ng-class="{grey: !column.acceptSubmission}">
+            <input ng-model="column.acceptSubmission" type="checkbox" class="submission mui-checkbox-simple">
+            开启后可以让非专栏作者投稿到专栏
+          </label>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="remove-column setting-sec">
+        <div class="form-content">
+          <a href="javascript:;" ui-confirm="remove(column)" confirm-message="确定删除该专栏？删除专栏不会删除文章，文章会展示在作者的个人主页「文章」栏目下。" class="remove-button">删除专栏</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-dialog edit-topic-dialog" ui-dialog="" tabindex="0" open="showTopicModifyDialog">
+    <div class="modal-dialog-title">
+      <span class="modal-dialog-title-text">申请修改</span>
+      <span class="modal-dialog-title-close"></span>
+    </div>
+    <div class="modal-dialog-content">
+      <div class="desciption">专栏话题即专栏的创作方向，请选择绑定合适的话题。修改将在一个工作日内生效。</div>
+      <div class="edit-topics-container">
+        <div class="sec-title">专栏话题</div>
+        <div class="tag-suggestion-container" ui-tag-input="" holdertext="搜索话题..." max-tags="3" after-select="afterSelect" suggest-options="suggestOptions" ng-model="suggestTopics">
+        </div>
+        <span class="tip" ng-show="suggestTopics.length >= 3">只能输入3个话题</span>
+      </div>
+      <div class="sec-title">修改说明</div>
+      <textarea ui-textarea-autogrow="" class="mui-input" placeholder="填写相关修改说明（选填）"></textarea>
+    </div>
+    <div class="modal-dialog-buttons">
+      <button class="btn btn-grey-nborder" ng-click="showTopicModifyDialog = false">取消</button><button class="btn btn-blue" ng-disabled="!suggestTopics.length" ng-click="suggestTopics.length && editTopics()">确定</button>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/column-transfer.html">
+<div ng-controller="ColumnTransferCtrl" ng-class="{'show-next': showCancelColumn || showCompleteForm}" class="transfer-dialog-inner">
+  <div class="intro">
+    <div class="text">
+      <h6>欢迎来到新版专栏</h6>
+    </div>
+  </div>
+
+  <div class="column-form complete-form fx-item-enter" ng-form="requestForm">
+    <p class="description">请确认或补全 <b>{{column.name}}</b> 的专栏信息，开始使用新版专栏</p>
+
+    <div class="setting-sec item-form-label-top column-topic">
+      <ui-block-title class="form-title block-title-wider block-title-no-underline" data-help="专栏话题即你计划的写作方向，申请通过后，专栏话题将不可修改。不同的写作方向可以分别申请多个专栏。">专栏话题</ui-block-title>
+      <div class="tag-suggestion-container" ui-tag-input="" holdertext="搜索话题" max-tags="3" suggest-options="suggestOptions" ng-model="column.topics">
+      </div>
+      <div class="tips-always" ng-show="showTopicTips">
+        <div class="left">修改通过后 30 天内无法更改</div>
+      </div>
+    </div>
+
+    <div class="submit-buttons">
+      <a class="rule" href="/p/20635074" target="_blank"><i class="icon-ic_help"></i>了解新版专栏</a>
+      <button class="btn btn-blue" ng-disabled="requestForm.$invalid || submiting" ng-click="requestForm.$valid && !submiting && submit()">开启新专栏</button>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/columns-selector.html">
+<div class="modal-dialog columns-selector" ui-dialog="" tabindex="-1" open="show">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">{{title}}</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    <div class="column-list" ng-show="columns.length">
+        <a href="/{{column.slug}}" ng-click="select(column, $event)" class="column-item clearfix" ng-repeat="column in columns">
+          <img class="avatar" ng-src="{{column.avatar | avatarUrl:50}}">
+          <div class="column-content">
+            <div class="column-title ellipsis">{{column.name}}</div>
+            <div class="article-count">{{column.postsCount || 0}} 篇文章</div>
+          </div>
+          <i class="icon icon-go"></i>
+        </a>
+        <a href="javascript:;" ng-click="create()" class="column-item create-column" ng-if="mode != 'selectonly'">
+          <i class="icon icon-create-column"></i>
+          <div class="text">创建专栏</div>
+          <i class="icon icon-go"></i>
+        </a>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/comment-item.html">
+<li class="comment-item" id="comment-{{comment.id}}" ui-events="{focusin: 'focusin = true', focusout: 'focusin = false'}" ng-class="{focusin: focusin, 'comment-item-deleted': comment.deleted}" ng-switch="!!comment.deleted">
+  <div ng-switch-when="false" class="comment-item-inner-normal">
+    <a ui-hovercard="" target="_blank" class="avatar-link" title="{{comment.author.name}}" href="{{comment.author.profileUrl}}" tabindex="-1">
+      <img ng-src="{{comment.author.avatar | avatarUrl:50}}" class="avatar avatar-small">
+    </a>
+
+    <div class="comment-body" ng-init="reply = {content: '', hidden: true}">
+      <a href="javascript:;" class="btn-conversation" ng-click="viewConversation(comment)" ng-if="comment.inReplyToCommentId"><i class="icon-ic_conversations"></i>查看对话</a>
+
+      <div class="comment-hd" ng-class="{'comment-hd-conversation': comment.inReplyToCommentId}">
+        <a href="{{comment.author.profileUrl}}" target="_blank">{{comment.author.name}}</a>
+        <!-- <span ng-if="comment.author.isOrg" class="OrgBadge z-ico-badge16" ui-hover-title="已认证的机构"></span> -->
+        <span ng-if="isPostOwner(comment.author)">（作者）</span>
+        <span class="in-reply-to" ng-show="comment.inReplyToUser">
+          回复 <a href="{{comment.inReplyToUser.profileUrl}}">{{comment.inReplyToUser.name}}</a>
+          <!-- <span ng-if="comment.inReplyToUser.isOrg" class="OrgBadge z-ico-badge16" ui-hover-title="已认证的机构"></span> -->
+          <span ng-if="isPostOwner(comment.inReplyToUser)">（作者）</span>
+        </span>
+        <div ng-if="comment.reviewing" ui-menu-button="" class="CommentReviewingIcon">
+          <span class="menu-button"><i class="icon-ic_visibility_off"></i></span>
+          <menu class="menu">
+            <div class="item">已开启预审评论，评论由机构筛选后公开</div>
+          </menu>
+        </div>
+      </div>
+
+      <div class="comment-content" ng-bind-html="comment.content"></div>
+
+      <div class="comment-ft clearfix">
+        <time ng-if="timeStyle != 'shor'" ui-time="" datetime="{{comment.createdTime}}" class="date" time-style="timeStyle"></time>
+
+        <span class="like-num {{comment.likesCount && 'liked' || 'nil'}}" title="{{comment.likesCount}} 人觉得这个很赞"><span>{{comment.likesCount}}</span> <span>赞</span></span>
+
+        <a ng-if="state === 'reviewing' && comment.reviewing" ng-click="approve(comment)" href="javascript:;" class="approve op-link op-link-visible"><i class="icon-ic_pass"></i>公开</a>
+
+        <a ng-if="canRemove(comment) && state === 'normal'" ng-click="remove(comment)" href="javascript:;" class="remove op-link"><i class="icon-ic_phot_delete"></i>删除</a>
+
+        <a ng-if="canReply(comment) && state === 'normal'" ng-click="toggleReplyForm(reply)" href="javascript:;" class="reply op-link"><i class="icon-ic_column_reply"></i>回复</a>
+
+        <a ng-if="!ownComment(comment) && state === 'normal' && !comment.reviewing" ng-click="like(comment)" href="javascript:;" class="like op-link {{comment.liked && 'liked' || ''}}"><i class="icon-ic_comment_like"></i>{{comment.liked && '取消赞' || '赞'}}</a>
+
+        <a ng-if="ownPost() && state === 'normal' && !comment.reviewing" ng-click="recommend(comment)" href="javascript:;" class="recommend op-link {{comment.featured && 'recommended'}}"><i class="icon-ic_highlighted"></i>{{comment.featured ? '取消推荐' : '推荐'}}</a>
+
+        <a ng-if="!ownComment(comment) && state === 'normal' && !comment.reviewing" ng-click="report(comment)" href="javascript:;" class="report op-link"><i class="icon-ic_column_report"></i>举报</a>
+      </div>
+
+      <form name="replyForm" class="comment-form comment-reply-form expanded hidden" ng-if="canReply(comment)" ng-class="{hidden: reply.hidden}">
+        <img class="avatar avatar-small" ng-src="{{me.avatar | avatarUrl:50}}">
+        <div class="editable" ui-focus-me="!reply.hidden" ui-ctrl-enter="replyComment(comment, reply, replyForm)" ui-scraper="" scraper-options="scraperOptions" ui-mention="" ui-clean-paste="" contenteditable="true" content-required="" ng-model="reply.content" holdertext="{{placeholder}}"></div>
+        <div class="command clearfix" ng-if="me.authed()">
+          <button ng-disabled="reply.pending || !reply.content.replace('<br>', '').trim()" ng-click="replyComment(comment, reply, replyForm)" class="save btn btn-blue">评论</button>
+          <button ng-click="reply.hidden = true" class="cancel btn btn-grey-nborder">取消</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <div ng-switch-when="true" class="comment-item-inner-deleted">
+    这里有一条已删除的评论
+  </div>
+</li>
+</script>
+
+<script type="text/ng-template" id="/views/conversation.html">
+<div class="modal-dialog conversation-dialog" tabindex="-1" ng-class="{'no-comment-form': !commentsStatus.canComment, loading: pending}">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">查看对话</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content" ng-class="{loading: pending}">
+    <div id="conversation-comments" class="entry-comments" ui-post-comments="" comments-state="state" comments-href="url" comments-expanded="true" comments-post-owner="postOwner" comments-status="commentsStatus" comments-placeholder="{{placeholder}}" disable-scraper="true" comments-add-href="replyCommentHref" time-style="short"></div>
+
+    <div ui-spinner="" ng-if="pending"></div>
+  </div>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/direct-message.html">
+<div class="modal-dialog direct-message-dialog" ui-dialog="" tabindex="0" open="show">
+  <div class="modal-dialog-title">
+    <span class="modal-dialog-title-text">发送私信</span>
+    <span class="modal-dialog-title-close"></span>
+  </div>
+
+  <div class="modal-dialog-content">
+    <div class="to">发送给：<span class="name">{{user.name}}</span></div>
+    <div class="dm-content">
+      <div class="editable mui-input" ui-scraper="" scraper-options="scraperOptions" ui-clean-paste="" ui-events="{focus:'expandForm(true)'}" ui-ctrl-enter="addComment()" contenteditable="true" content-required="" ng-model="dmMessage" holdertext="输入内容..." name="content"></div>
+    </div>
+  </div>
+
+  <div class="modal-dialog-buttons">
+    <span ng-click="close()" class="btn btn-grey-nborder">取消</span><span ng-click="dmMessage && send()" class="btn btn-blue" ng-disabled="!dmMessage">发送</span>
+  </div>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/draft-list.html">
+<div class="main receptacle">
+  <div class="draft-items-container settings-posts-container" ui-infinite="" data-source="draftsSource">
+    <h2 ng-if="drafts.length && censors.length"><b>其他草稿</b><sub>{{draftsSource.count}}</sub></h2>
+    <div class="list-empty" ng-if="!animating && !draftsSource.pending && !drafts.length && !censors.length">
+      <i class="icon-show icon-ic_no_drafts"></i>
+      <p>{{draftsSource.error && '服务器提了一个问题，请稍候再试。' || '尚无任何草稿'}}</p>
+    </div>
+    <ul class="items draft-list" ng-show="drafts.length">
+      <li class="item fx-draft-item-fade" ng-repeat="draft in drafts">
+        <div class="entry-title"><a href="/p/{{draft.id}}/edit">{{draft.title || '无标题'}}</a></div>
+        <div class="entry-meta">
+          <time ui-time="" datetime="{{draft.updatedTime}}" class="updated"></time>
+          <span class="bull">·</span>
+          <span class="words">共 {{draft.content | wordlen}} 字</span>
+          <span class="bull">·</span>
+          <a href="javascript:;" ui-confirm="removeDraft(draft, $index)" confirm-message="确定删除该草稿？" confirm-title="删除草稿">删除</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/home.html">
+<div ng-show="recommendColumnsInited && recommendPostsInited">
+  <div class="top">
+    <h1>知乎<span class="bull">·</span>专栏</h1>
+    <h2>随心写作，自由表达</h2>
+    <a ng-click="handleLoginBeforeJump($event)" href="/write" class="btn btn-black write-btn">开始写文章</a>
+    <a ng-click="handleLoginBeforeJump($event, true)" class="request-btn" href="/request">申请开通专栏
+      <svg width="12px" height="12px" viewbox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>icon_arrow</title>
+        <desc>Created with Sketch.</desc>
+        <defs></defs>
+        <g id="最后" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="icon_arrow">
+                <polyline id="Line" stroke="#50C87E" stroke-width="1.5" stroke-linecap="round" points="4 1.88671867 8 6.21380071 4 10.2138007"></polyline>
+                <rect id="Rectangle-2" x="0" y="0" width="12" height="12"></rect>
+            </g>
+        </g>
+      </svg>
+    </a>
+  </div>
+
+  <section class="l-receptacle">
+    <h3><span>专栏 · 发现</span></h3>
+    <ul class="column-card-list clearfix">
+      <li class="column-card-item" ng-repeat="column in recommendColumns track by column.slug">
+        <p class="avatar">
+          <a href="{{column.url}}" ui-open-blank="" target="_self" ng-click="handleRecommendColumnClick()"><img alt="" ng-src="{{column.avatar | avatarUrl:76}}"></a>
+        </p>
+        <p class="title"><a ui-open-blank="" target="_self" ng-click="handleRecommendColumnClick()" href="{{column.url}}">{{column.name}}</a></p>
+        <p class="description"><a ui-open-blank="" target="_self" ng-click="handleRecommendColumnClick()" href="{{column.url}}">{{column.displayDescription}}</a></p>
+        <p class="meta">
+          {{column.followersCount}} 人关注
+          <span class="split">|</span>
+          {{column.postsCount}} 篇文章
+        </p>
+        <a ui-open-blank="" target="_self" ng-click="handleRecommendColumnClick()" class="btn btn-green btn-90_32" href="{{column.url}}">进入专栏</a>
+      </li>
+    </ul>
+    <p class="random">
+      <a class="btn btn-black btn-90_32" href="javascript:;" ng-click="nextRecommendColumn($event)"><i class="icon-ic_refresh"></i>换一换</a>
+    </p>
+  </section>
+
+  <section class="l-receptacle">
+    <h3><span>文章 · 发现</span></h3>
+    <ul class="post-card-list clearfix">
+      <li class="post-card-item" ng-repeat="post in recommendPosts track by post.slug">
+        <a ui-open-blank="" target="_self" href="{{post.url}}">
+          <p class="post-img" ng-if="post.titleImage" ng-style="{'background-image': 'url('+ (post.titleImage | imgSize: 'b') +')'}"></p>
+          <p class="post-no-img" ng-if="!post.titleImage"></p>
+          <p class="title">{{post.displayTitle}}</p>
+          <p ng-show="!post.titleImage && winType != 'small'" class="content">{{post.displaySummary}} <span class="read-all">查看全文<i class="icon-ic_unfold"></i></span></p>
+        </a>
+        <p class="meta">
+          <span class="author ellipsis"><a target="_blank" href="http://{{post.author.slug | profileUrl}}">{{post.displayAuthorName}}</a></span>
+          <span ng-if="post.column" class="source ellipsis">发表于 <a ui-open-blank="" target="_self" href="/{{post.column.slug}}">{{post.displayColumnName}}</a></span>
+        </p>
+      </li>
+    </ul>
+    <p class="random">
+      <a class="btn btn-black btn-90_32" href="javascript:;" ng-click="nextRecommendPost($event)"><i class="icon-ic_refresh"></i>换一换</a>
+    </p>
+  </section>
+
+  <div class="bottom">
+    <h3>在知乎创作</h3>
+    <a ng-click="handleLoginBeforeJump($event, true)" class="btn btn-black" href="/request">申请专栏</a>
+    <div class="footer">
+      <span>© 2017 知乎<span>
+      <span class="dot">·</span>
+      <a target="_blank" href="/">知乎专栏</a>
+      <span class="dot">·</span>
+      <a target="_blank" href="https://www.zhihu.com/roundtable">知乎圆桌</a>
+      <span class="dot">·</span>
+      <a target="_blank" href="https://www.zhihu.com/explore" data-za-c="explore" data-za-a="visit_explore" data-za-l="home_bottom_explore">发现</a>
+      <span class="dot">·</span>
+      <a target="_blank" href="https://www.zhihu.com/app">移动应用</a>
+      <span class="dot">·</span>
+      <a href="https://www.zhihu.com/org/signin" class="footer-mobile-show">使用机构帐号登录</a>
+      <span class="dot footer-mobile-show">·</span>
+      <a href="https://www.zhihu.com/contact" class="footer-mobile-show">联系我们</a>
+      <span class="dot">·</span>
+      <a target="_blank" href="https://www.zhihu.com/careers">来知乎工作</a>
+      <br>
+      <a href="http://www.miibeian.gov.cn/" target="_blank">京 ICP 证 110745 号</a>
+      <span class="dot">·</span>
+      <span>京公网安备 11010802010035 号</span>
+      <span class="dot">·</span>
+      <a href="http://zhstatic.zhihu.com/assets/zhihu/publish-license.jpg" target="_blank">出版物经营许可证</a>
+    </span></span></div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/ie.html">
+<div class="server-error-container">
+  <i class="icon icon-error-500"></i>
+  抱歉，暂不支持低版本 Internet Explorer 网页浏览器，请升级：
+  <ul style="text-align:center;list-style:none">
+    <li>
+      <a target="_blank" href="https://www.google.com/chrome">Google Chrome</a>
+    </li>
+    <li>
+      <a target="_blank" href="http://se.360.cn">360安全浏览器</a>
+    </li>
+    <li>
+      <a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">Internet Explorer 10</a>
+    </li>
+  </ul>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/main.html">
+<div class="main receptacle home-view">
+
+  <div class="rec-section posts">
+    <h1 class="rec-title">推荐文章</h1>
+    <p class="items-empty" ng-show="!loading && !posts.length">
+      还没有任何文章
+    </p>
+    <ul class="items" ng-show="posts.length">
+      <li class="item" ng-repeat="post in posts">
+        <article class="hentry">
+          <header>
+            <a ng-click="toggleLike(post)" href="javascript:;" class="vote-num">{{post.likesCount}}</a>
+            <h2 class="entry-title"><a href="/{{post.column.slug}}/{{post.slug}}">{{post.title}}</a></h2>
+            <div class="entry-meta">
+              <a href="{{post.author.profileUrl}}" class="author name">{{post.author.name}}</a>
+              <span class="bull">·</span>
+              <time ui-time="" datetime="{{post.publishedTime}}" class="published"></time>
+              <a href="/{{post.column.slug}}/{{post.slug}}#comments" class="comment"><i class="icon icon-comment"></i>{{post.commentsCount && (post.commentsCount + ' 条评论') || '还没有评论'}}</a>
+            </div>
+          </header>
+
+          <section class="entry-summary">{{post.content | truncateHtml}}</section>
+        </article>
+      </li>
+    </ul>
+  </div>
+
+  <aside class="sidebar">
+    <div class="rec-section columns">
+      <h2 class="rec-title">推荐专栏</h2>
+      <div class="block author-block" ng-repeat="column in columns">
+        <a href="{{column.slug}}" class="link column">
+          <img class="avatar" ng-src="{{column.image}}">
+          <span class="name">{{column.name}}</span>
+        </a>
+        <div class="desc">{{column.description}}</div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/maintenance.html">
+<div class="server-error-container">
+  <i class="icon icon-error-404"></i>
+  抱歉，正在抢修程序中
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/navbar.html">
+<header id="header" class="navbar" ng-controller="NavbarCtrl" ng-cloak="" ui-scroll-back-fixed="" fixed="scrollBackFixedNavbar">
+  <div class="navbar-logo-container">
+    <a href="//www.zhihu.com" target="_blank" class="logo icon-ic_zhihu_logo" aria-label="知乎首页"></a>
+  </div>
+
+  <div class="navbar-title-container clearfix" ng-class="{show: showTitle}" ng-click="handleTitleClick($event)">
+    <div class="img" ng-if="title.img">
+      <img ng-if="!title.imghref" class="avatar avatar-small" alt="" ng-src="{{title.img}}">
+      <a href="{{title.imghref}}" ng-if="title.imghref" ng-attr-aria-label="{{title.ariaLabel}}">
+        <img class="avatar avatar-small" alt="" ng-src="{{title.img}}">
+      </a>
+    </div>
+    <div class="titles" ng-class="{oneline: !title.subtitle || !title.main}" ng-hide="!title.subtitle && !title.main">
+      <div class="subtitle" ng-if="title.subtitle" ng-bind-html="title.subtitle"></div>
+      <div class="main-title" ng-if="title.main" ng-bind-html="title.main"></div>
+    </div>
+    <div class="functions" ng-if="title.buttons">
+    </div>
+    <div class="status" ng-if="extraStatus" ng-class="extraStatus.type">{{extraStatus.text}}</div>
+    <div class="status" ng-if="extraStatus"> • </div>
+    <div class="status" ng-if="status" ng-class="status.type">{{status.text}}</div>
+  </div>
+
+  <ng-include src="'/views/navbar/login.html'" ng-if="!me.authed() && me.$resolved"></ng-include>
+
+  <ng-include src="'/views/navbar/menu.html'" ng-if="me.authed()"></ng-include>
+
+  <ng-include src="'/views/navbar/write.html'" ng-if="!inWrite && me.$resolved"></ng-include>
+
+
+  <div class="navbar-content">
+  </div>
+
+</header>
+</script>
+
+<script type="text/ng-template" id="/views/num-code.html">
+<div class="num-code">
+  <input class="num-code-item-{{$index}}" type="password" ng-repeat="input in inputs" value="{{inputValues[$index]}}" ng-focus="handleFocus($event, $index)" ng-keydown="handleInput($event, $index)" readonly="readonly">
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/post-comments-settings.html">
+<span class="comment-setting-button menu-button-no-arrow" ui-menu-button="" ng-if="isPostOwner(me)">
+  <a href="javascript:;" class="menu-button comment-setting-button"><i class="icon-ic_column_more" ng-if="ownPost()"></i><span class="hide-text">评论设置</span></a>
+  <menu class="menu">
+    <label class="menu-item" ng-repeat="item in commentSettingMenuItems">
+      <input name="comment-settting" type="radio" value="{{item.value}}" class="mui-radio" ng-model="status.permission" ng-click="onClickCommentSettingItem($event)">
+      {{item.text}}
+    </label>
+  </menu>
+</span>
+</script>
+
+<script type="text/ng-template" id="/views/post-comments.html">
+<div class="comment-box" ng-show="expanded" ng-class="{ empty: !pending && !comments.length }" ng-switch="pending">
+  <div class="box-header" ng-switch="!!(isPostOwner(me) && me.isOrg)">
+    <div ng-switch-when="false">
+      <ui-block-title>
+        {{status.count ? (status.count + ' 条评论') : '还没有评论'}}
+
+        <span ng-include="'/views/post-comments-settings.html'"></span>
+      </ui-block-title>
+    </div>
+
+    <div class="tabs-nav clearfix" ng-switch-when="true">
+      <a href="#" class="tabs-anchor" ng-class="{ 'active': state === 'normal' }" ng-click="toggleCommentsType($event, 'normal')">
+        {{status.count ? (status.count + ' 条评论') : '还没有评论'}}
+      </a>
+      <a href="#" class="tabs-anchor" ng-class="{ 'active': state === 'reviewing' }" ng-click="toggleCommentsType($event, 'reviewing')" ng-if="status.permission === 'review' && status.reviewingCount != null">
+        {{status.reviewingCount}} 条待审核评论
+      </a>
+
+      <span ng-include="'/views/post-comments-settings.html'"></span>
+    </div>
+  </div>
+
+  <div ng-switch-when="false">
+    <form class="comment-form comment-box-ft" ng-class="{ 'expanded': formExpanded }" name="commentForm" ng-if="(status.canComment || status.forceShowCommentForm) && state === 'normal'">
+      <img class="avatar avatar-small" ng-src="{{me.avatar | avatarUrl:50}}" ng-if="me.authed()">
+      <div class="editable" ui-scraper="" scraper-options="scraperOptions" ui-mention="" ui-clean-paste="" ui-events="{focus:'handleInputFocus($event)'}" ui-ctrl-enter="addComment()" contenteditable="true" content-required="" ng-model="editingComment.content" holdertext="{{placeholder}}" name="content" toggle-delay="250"></div>
+      <div class="command clearfix" ng-if="me.authed()">
+        <button ng-disabled="savePending || !editingComment.content.replace('<br>', '').trim()" ng-click="addComment()" class="save btn btn-blue">评论</button>
+        <button ng-click="expandForm(false, $event)" class="cancel btn btn-grey-nborder">取消</button>
+      </div>
+    </form>
+
+    <div class="message" ng-if="(me.authed() && !isPostOwner(me) && !status.canComment) || status.permission == 'none'" ng-switch="status.permission">
+      <span ng-switch-when="denied">对方已将你屏蔽，你无法在这里评论</span>
+      <span ng-switch-when="friends">只有作者关注的人才能在这里评论</span>
+      <span ng-switch-when="none">评论已关闭</span>
+    </div>
+
+    <div class="comment-list-container" ng-if="loadStyle == 'infinite'">
+      <ul class="comment-list">
+        <ui-comment-item ng-repeat="comment in comments | orderBy:'id' track by comment.id"></ui-comment-item>
+      </ul>
+
+      <div class="load-more" ng-if="!source.completed" ng-switch="" on="source.pending">
+        <a ng-switch-when="false" href="javascript:;" ng-click="loadMore()">显示更多</a>
+        <span ng-switch-when="true"><div ui-spinner="" class="small"></div></span>
+      </div>
+
+      <div class="comment-empty" ng-if="!source.pending && !comments.length">
+        <i class="icon-ic_comment"></i>
+        <p class="description">暂无草稿评论</p>
+      </div>
+    </div>
+
+    <div class="comment-list-container" ng-if="loadStyle == 'pagination'" url="commentHrefMap[state]" data="oriComments" extra="commentCountMap[state]" index="locateItemIndex" ui-pagination="">
+      <ul class="comment-list">
+        <ui-comment-item ng-repeat="comment in featureComments track by comment.id"></ui-comment-item>
+        <li class="comment-feature-description" ng-if="featureComments.length">
+          <ui-block-title help="精选评论包含文章作者推荐的评论和部分高赞评论">以上为精选评论</ui-block-title>
+        </li>
+        <ui-comment-item ng-repeat="comment in comments track by comment.id"></ui-comment-item>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/post-includes.html">
+<ui-block-title>文章被以下专栏收录</ui-block-title>
+<ul class="included-items" ng-click="handleContributeClick($event)">
+  <ui-column-item column="contribute.column" ng-repeat="contribute in contributes" contribute-info="contribute" index="$index">
+</ul>
+</script>
+
+<script type="text/ng-template" id="/views/post-item.html">
+<li class="item" ng-class="itemClass">
+  <article class="hentry">
+    <a href="{{post.url}}" class="entry-link">
+      <h1 class="entry-title">{{post.title}}</h1>
+
+      <div class="title-img-container" ng-if="titleImageShow">
+        <div class="title-img-preview" ng-style="{'background-image': 'url(' + post.titleImage + ')'}">
+        </div>
+      </div>
+
+      <div class="title-img-container" ng-if="!titleImageShow"></div>
+
+      <section class="entry-summary">
+        <p ui-summary="post.content" max="truncateMax">
+          <span class="read-all">查看全文<i class="icon-ic_unfold"></i></span>
+        </p>
+      </section>
+    </a>
+
+    <footer>
+      <div class="entry-meta">
+        <a target="_blank" href="{{post.author.profileUrl}}" class="author name">{{post.author.name}}</a>
+        <span class="bull" ng-click="test()">·</span>
+        <time ui-time="" datetime="{{post.publishedTime}}" class="published"></time>
+        <span ng-if="showRecommend" class="bull">·</span>
+        <span class="recommend-post" ng-if="showRecommend">编辑精选</span>
+      </div>
+
+      <div class="entry-func" ng-if="!showSource">
+        <a href="/p/{{post.slug}}" class="vote-num" ng-show="post.likesCount">{{post.likesCount}}<span> 赞</span></a>
+        <span ng-show="post.likesCount && post.commentsCount" class="bull">·</span>
+        <a href="/p/{{post.slug}}#comments" class="comment" ng-show="post.commentsCount">{{post.commentsCount}}<span> 条评论</span></a>
+      </div>
+
+      <div class="entry-source" ng-if="showSource && post.column">
+        <span class="source-prefix">发表于</span>
+        <a href="/{{post.column.slug}}" ng-if="post.column">{{post.column.name}}</a>
+      </div>
+    </footer>
+
+
+  </article>
+</li>
+</script>
+
+<script type="text/ng-template" id="/views/post-list.html">
+<div class="main receptacle">
+
+  <div class="column-about" ng-switch="columnType == 'user'">
+    <div class="avatar-link">
+      <img class="avatar-big" ng-src="{{column.avatar | avatarUrl:100}}">
+    </div>
+    <div href="{{column.url}}" class="title">{{column.name}}</div>
+    <div class="description" ng-bind-html="column.intro | linky"></div>
+    <div class="functions" ng-switch-when="false" ng-hide="column.activateState != 'activated'">
+      <button ui-follow-button="" ng-model="column.following" ng-click="toggleFollow()" class="btn btn-90_36" ng-if="!column.canManage"></button>
+      <a class="btn btn-black btn-90_36" ng-if="column.canManage" href="/{{column.slug}}/settings/posts">管理专栏</a>
+      <div class="more-funcs menu-button-no-arrow" ui-menu-button="">
+        <span class="menu-button"><i class="icon-ic_unfold"></i></span>
+        <menu class="menu navbar-menu">
+          <a href="/{{column.slug}}/about" class="menu-item">关于</a>
+          <a ng-if="column.acceptSubmission" href="javascript:;" class="menu-item" ng-click="handleContribute()">投稿到该专栏</a>
+          <a ng-if="!ownColumn() && false" href="javascript:;" class="menu-item" ng-click="handleReport()">举报</a>
+        </menu>
+      </div>
+    </div>
+    <div class="followers" ng-switch-when="false" ng-hide="column.activateState != 'activated'">
+      <a ui-open-blank="" ng-if="column.followersCount" href="/{{column.slug}}/followers">{{column.followersCount}} 人关注</a>
+      <span ng-if="!column.followersCount">还没有人关注</span>
+    </div>
+
+    <div class="warning" ng-if="columnType != 'user' && column.activateState == 'ban'">
+      <span ng-if="column.banUntil > 0">由于违反<a href="https://www.zhihu.com/question/41623362/answer/91706213" target="_blank">知乎专栏规范</a>，该专栏暂时处于禁止更新状态，{{column.banUntil}} 日后将恢复正常使用。</span>
+      <span ng-if="column.banUntil <= 0">由于严重违反<a href="https://www.zhihu.com/question/41623362/answer/91706213" target="_blank">知乎专栏规范</a>，该专栏已被禁止更新。</span>
+    </div>
+
+    <div class="tags" ng-if="!currentAuthor && column.postTopics.length">
+      <span ng-click="filterTopic()" class="tag" ng-class="!currentTopic && 'current'"><b>全部</b>{{column.postsCount}}</span>
+      <span ng-if="isShowMoreTopics">
+        <span ng-click="filterTopic(topic)" class="tag" ng-class="currentTopic == topic && 'current'" ng-repeat="topic in column.postTopics"><b>{{topic.name}}</b>{{topic.postsCount}}</span>
+      </span>
+      <span ng-if="!isShowMoreTopics">
+        <span ng-click="filterTopic(topic)" class="tag" ng-class="currentTopic == topic && 'current'" ng-repeat="topic in column.postTopics | limitTo: 3"><b>{{topic.name}}</b>{{topic.postsCount}}</span>
+        <span ng-click="showMoreTopics()" ng-if="column.postTopics.length > showTopicNum" class="more">更多</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="column-breadcrumb" ng-if="currentAuthor">
+    <a href="/{{column.slug}}">全部</a>
+    <span class="arrow"><i class="icon-ic_unfold"></i></span>
+    <span class="author"><img class="avatar avatar-small" alt="" ng-src="{{currentAuthor.avatar | avatarUrl:36}}">{{currentAuthor.name}} 的文章</span>
+  </div>
+
+  <div class="list-empty" ng-show="!postsSource.pending && !posts.length && !recommendPosts.length">
+    <div class="posts-end"><i class="icon-ic_column_end"></i></div>
+    <i class="icon-show icon-ic_column_no_article"></i>
+    <p>{{postsSource.error && '服务器提了一个问题，请稍候再试。' || '尚未发布过文章'}}</p>
+    <a href="/write" class="btn btn-blue btn-100_36" ng-if="column.canPost && !postsSource.error">开始写文章</a>
+  </div>
+
+  <div class="editor-choices-container" ng-if="recommendPosts.length" ng-show="feedInited">
+    <ui-block-title>置顶文章</ui-block-title>
+    <ul class="editor-choices-items">
+      <ui-post-item ng-repeat="post in recommendPosts | limitTo : 1" post="post" type="wide" column="column">
+    </ul>
+  </div>
+
+  <div class="items-container" ui-infinite="" data-source="postsSource" ng-if="postsSource" ng-hide="!postsSource.pending && !posts.length && !recommendPosts.length">
+    <ui-block-title ng-show="posts.length" ng-if="!currentAuthor">{{currentTopic ? currentTopic.name : '最新文章'}}</ui-block-title>
+
+    <ul class="items" ng-show="posts.length">
+      <ui-post-item ng-repeat="post in posts track by $index" post="post" column="column">
+    </ul>
+
+    <div class="posts-end" ng-show="posts.length && postsSource.completed"><i class="icon-ic_column_end"></i></div>
+  </div>
+
+</div>
+
+
+<div class="pop-panel column-author-request fx-item-hide" ng-if="!column.canPost && column.activateAuthorRequested != 'none'">
+  <div class="pop-panel-title">邀请</div>
+  <div class="pop-panel-content" ng-if="!showActivateAuthorSuccess">
+    你受邀成为该专栏{{authorType[column.activateAuthorRequested][0]}}，{{authorType[column.activateAuthorRequested][1]}}。
+  </div>
+  <div class="pop-panel-content empty" ng-if="showActivateAuthorSuccess">
+    <i class="icon-ic_prompt_done notice-success"></i>
+    你已成为该专栏的{{authorType[column.activateAuthorRequested][0]}}
+  </div>
+  <div class="pop-panel-buttons" ng-if="!showActivateAuthorSuccess">
+    <button class="btn btn-grey-link cancel" ng-click="dismissActiveAuthor()">忽略</button>
+    <button class="btn btn-blue" ng-click="activateAuthor(column)">通过</button>
+  </div>
+</div>
+
+
+
+<div class="modal-dialog transfer-dialog" ui-dialog="" open="ownColumn() && column.activateState != 'frozen'">
+  <div class="modal-dialog-title"></div>
+  <div class="modal-dialog-content" ng-include="" src="'/views/column-transfer.html'">
+  </div>
+  <div class="modal-dialog-buttons"></div>
+</div>
+
+<div class="modal-dialog welcome-dialog" ui-dialog="" open="ownColumn() && column.firstTime">
+  <div class="modal-dialog-content">
+    <h6>欢迎，你的专栏已创建</h6>
+    <div class="description">
+      接下来，你可以前往「管理专栏」页面设置你的专栏品牌，或者邀请志同道合的朋友一起来写作。当然，你也可以现在就开始写文章。：）
+    </div>
+    <a href="/{{column.slug}}/settings" class="btn btn-blue go-setting" ng-click="arrived()">前往专栏设置 »</a>
+    <button class="btn btn-grey-link skip" ng-click="arrived()">跳过</button>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/post-view.html">
+<div class="main receptacle post-view" ng-class="post.isTitleImageFullScreen && winType != 'small' && !isCensoring && 'full-screen-cover'" ng-if="!notFound" data-za-module="PostItem">
+
+  <article class="entry" ui-lightbox="">
+    <header>
+      <div class="entry-title-image" ng-if="post.titleImage && !isCensoring" ng-switch="!!(post.titleImageSize.width || (winType != 'small' && post.isTitleImageFullScreen))">
+        <div ng-switch-when="true" class="img" ng-style="{'background-image': 'url({{post.titleImage}})', 'height': (winType == 'small' || !post.isTitleImageFullScreen) ? (winSize * post.titleImageSize.height / post.titleImageSize.width + 'px' ) : '' }"></div>
+        <img ng-switch-when="false" ng-src="{{post.titleImage}}">
+      </div>
+
+      <div class="placeholder"></div>
+
+      <h1 class="{{'multiline' + titleLine + ' entry-title'}}">{{post.title}}</h1>
+
+      <div class="entry-meta">
+        <a target="_blank" href="{{post.author.profileUrl}}" class="author name">
+          <img ng-src="{{post.author.avatar | avatarUrl:36}}" alt="{{author.name}}" class="avatar-small">{{post.author.name}}
+        </a>
+        <ui-badge is-org="post.author.isOrg" badge="post.author.badge" size="14"></ui-badge>
+        <span class="bull">·</span>
+        <time ui-time="" datetime="{{post.publishedTime}}" class="published"></time>
+      </div>
+    </header>
+
+    <div class="entry-warning" ng-if="isCensoring" ng-class="{'with-arrow': ownPost(post)}">
+      <div class="title">
+        {{post.stateText}}
+      </div>
+      <div class="text-muted" ng-switch="ownPost(post)">
+        <span ng-switch-when="true">建议修改期间，文章内容对其他用户不可见。修改提交后会自动进入评估状态。</span>
+        <span ng-switch-when="false">作者修改内容通过后，文章会重新显示。</span>
+      </div>
+      <a target="_blank" href="https://www.zhihu.com/question/24752645" class="help icon-ic_help"></a>
+    </div>
+
+    <section class="entry-content" ng-bind-html="postContentTrustedHtml" ui-copyright-check="" data-entry-url="{{post.url}}" data-author-name="{{post.author.name}}" ng-if="ownPost(post) || !isCensoring"></section>
+
+    <footer>
+      <ui-tipjar ng-if="!forceHideTipjar && !isCensoring && (post.tipjarState == 'activated' || (ownPost(post) && post.tipjarState != 'closed' && !me.isOrg))"></ui-tipjar>
+
+      <div class="entry-exinfo clearfix" ng-if="isPublished">
+        <p class="reviewers" ng-if="post.reviewers" ng-class="{'can-see': ownPost(post)}">
+          <span ng-if="!showAllReviewer" ng-repeat="user in post.reviewers | limitTo: 2">
+            <a class="user" target="_blank" href="{{user.profileUrl}}" class="control-item">{{user.name}}</a>
+          </span>
+          <span ng-if="showAllReviewer" ng-repeat="user in post.reviewers">
+            <a class="user" target="_blank" href="{{user.profileUrl}}" class="control-item">{{user.name}}</a>
+          </span>
+          <a class="link" href="javascript:;" ng-click="handleReviewerClick()" ng-class="{nlink: showAllReviewer}">{{post.reviewers.length > 2 && !showAllReviewer ? '等人亦有帮助' : '亦有帮助' }}</a>
+        </p>
+
+        <p class="tags" ng-if="post.topics.length" ng-class="{'full-screen': !post.reviewers.length}">
+          <span class="tag" ng-repeat="topic in post.topics | limitTo:3">{{topic.name}}</span>
+        </p>
+
+      </div>
+
+      <div class="entry-controls clearfix">
+        <div class="right-section">
+          <span class="post-share-button post-menu-button menu-button-no-arrow" ui-menu-button="" onbeforeopen="beforeShareMenuOpen()" ng-if="isPublished && !supportTouch">
+            <a href="javascript:;" class="menu-button control-item share"><i class="icon-ic_column_share"></i>分享</a>
+            <menu class="menu">
+              <button ng-click="item.action($event)" class="menu-item" ng-repeat="item in shareMenuItems" ng-class="item.className">
+                <i class="icon {{item.icon}}"></i>{{item.label}}
+                <div class="extra" ng-if="item.html" ng-bind-html="item.html"></div>
+              </button>
+            </menu>
+          </span>
+          <span class="post-share-button post-menu-button" ng-if="supportTouch">
+            <a href="javascript:;" ng-click="touchShare($event)" class="menu-button control-item share"><i class="icon-ic_column_share"></i>分享</a>
+          </span>
+
+          <a href="{{post.url}}/edit" class="control-item post-edit-button" ng-if="ownPost(post)"><i class="icon-ic_column_edit"></i>编辑</a>
+
+          <span class="post-options-button post-menu-button menu-button-no-arrow" ui-menu-button="" ng-if="ownPost(post)" toggle-delay="250">
+            <a href="javascript:;" class="menu-button control-item options">
+              <i class="icon-ic_column_more"></i><span class="hide-text">设置</span>
+            </a>
+            <menu class="menu">
+              <a href="javascript:;" ng-click="removePost()" class="menu-item">删除文章</a>
+              <a ng-if="!me.isOrg && !isCensoring && post.tipjarState == 'activated'" href="javascript:;" ng-click="disableTipjar()" class="menu-item tipjar-item">关闭赞赏</a>
+              <a ng-if="!me.isOrg && !isCensoring && post.tipjarState != 'activated' && post.tipjarState != 'closed'" href="javascript:;" ng-click="enableTipjar()" class="menu-item tipjar-item">开启赞赏</a>
+            </menu>
+          </span>
+
+          <a ng-if="!ownPost(post) && isPublished" ng-click="report(post)" href="javascript:;" class="control-item report"><i class="icon-ic_column_report"></i>举报</a>
+
+        </div>
+
+        <div class="left-section" ng-if="isPublished">
+          <div class="votes">
+            <a ng-if="!ownPost(post)" ng-click="post.toggleLike()" class="control-item" href="javascript:;" ng-class="{ active: post.rating == 'like' }"><i class="icon-ic_column_like"></i>{{post.likesCount}}</a>
+            <a ng-if="ownPost(post)" class="control-item disabled" href="javascript:;"><i class="icon-ic_column_like"></i>{{post.likesCount}}</a>
+          </div>
+        </div>
+
+        <div class="voters clearfix" ng-if="post.lastestLikers.length && !likers && isPublished">
+          <a href="{{user.profileUrl}}" target="_blank" data-title="{{user.name}}" class="voter" ng-repeat="user in post.lastestLikers">
+            <img ng-src="{{user.avatar | avatarUrl:26}}" alt="{{user.name}}" class="avatar avatar-xs">
+          </a>
+          <a href="/p/{{post.slug}}/voters" title="查看全部" class="more-voters" ui-open-blank="" ng-if="post.lastestLikers.length < post.likesCount && !fetchLikersPending">
+            <i class="icon-ic_like_more"></i>
+          </a>
+          <a class="more-voters" ng-if="fetchLikersPending">
+            <div ui-spinner="" class="half"></div>
+          </a>
+        </div>
+        <div class="voters clearfix" ng-if="likers && isPublished">
+          <a href="{{user.profileUrl}}" target="_blank" data-title="{{user.name}}" class="voter" ng-repeat="user in likers track by $index">
+            <img ng-src="{{user.avatar | avatarUrl:26}}" alt="{{user.name}}" class="avatar avatar-xs">
+          </a>
+        </div>
+
+      </div>
+
+
+      <div ng-include="'/views/post-includes.html'" class="included included-pc fx-item-fade" ng-if="contributes.length && isPublished">
+      </div>
+
+      <div id="comments" class="entry-comments post-comments" ui-post-comments="" comments-placeholder="{{commentsPlaceholder}}" comment-need-review="commentNeedReview" comments-href="post.links.comments" comments-expanded="true" comments-post-owner="post.author" comments-status="commentsStatus" ng-if="isPublished && !isQQNews" comments-style="pagination" locate-comment-id="locateCommentId"></div>
+
+      <div ng-include="'/views/post-includes.html'" class="included included-mobile fx-item-fade" ng-if="contributes.length && isPublished">
+      </div>
+
+    </footer>
+  </article>
+
+
+</div>
+
+<div class="server-error-container" ng-if="notFound">
+  <div class="error-code">404</div>
+  <div class="error-description">抱歉，没有找到该页面</div>
+  <div class="discover">
+    <a class="btn btn-blue btn-lg" href="/">返回专栏 · 发现 »</a>
+  </div>
+</div>
+
+<div class="recommend-posts" ng-if="isPublished && (!userColumn || isContributesAvailable())">
+  <div class="receptacle" ng-switch="recommendPending">
+    <ui-block-title>推荐阅读</ui-block-title>
+
+    <span ng-switch-when="true"><div ui-spinner="" class="small"></div></span>
+
+    <ul ng-switch-when="false" class="recommend-post-list">
+      <ui-post-item ng-repeat="post in recommendPosts" post="post" type="narrow" show-source="true" show-recommend="post.showRecommend">
+    </ul>
+
+  </div>
+</div>
+
+
+
+<div class="contribute-requests-container" ng-if="contributeRequests" ng-class="{merge : contributeRequests.length && showReviewPanel, hide:contributeRequests.done}">
+  <div class="pop-panel" ng-repeat="request in contributeRequests" ng-class="{'hide': request.done}">
+    <div class="pop-panel-title">投稿审阅 <span class="step" ng-if="contributeRequests.length > 1">{{contributeRequests.length - $index}}/{{contributeRequests.length}}</span></div>
+    <div class="pop-panel-content" ng-if="!request.success">
+      <a href="{{request.targetPost.author.profileUrl}}" target="_blank">{{request.targetPost.author.name}}</a> 申请将该文章发布到 <a href="/{{request.sourceColumn.slug}}" target="_blank">{{request.sourceColumn.name}}</a> 。
+    </div>
+    <div class="pop-panel-content empty" ng-if="request.success">
+      <i class="icon-ic_prompt_done notice-success"></i>
+      已收录该文章。
+    </div>
+    <div class="pop-panel-buttons" ng-if="!request.success">
+      <span class="btn btn-grey-link cancel" ng-click="dismissContributeReq(request, $index)">忽略</span>
+      <span class="btn btn-blue" ng-click="approveContributeReq(request, $index)">通过</span>
+    </div>
+  </div>
+</div>
+
+
+<div ng-include="" class="review-comment-container" src="'/views/review-comment-panel.html'" ng-if="showReviewPanel" ng-class="{merge: contributeRequests.length && showReviewPanel  && !contributeRequests.done, published: post.state == 'published'}"></div>
+</script>
+
+<script type="text/ng-template" id="/views/post-voters.html">
+<div class="main receptacle column-followers-main">
+
+  <h2 class="page-title ellipsis" ng-if="voters.length">{{post.likesCount}} 人赞了 {{post.title}}</h2>
+
+  <div ui-infinite="" data-source="source">
+
+    <p class="items-empty" ng-show="!source.pending && !voters.length">
+      <i class="icon" ng-class="{true: 'icon-error-500', false: 'icon-no-article'}[source.error]"></i>
+      {{source.error && '服务器提了一个问题，请稍候再试。' || '还没有人赞'}}
+    </p>
+
+    <ul class="column-followers clearfix">
+      <ui-user-item ng-repeat="user in voters" user="user">
+    </ul>
+
+  </div>
+
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/post-write.html">
+<div class="main post-write" ng-form="postForm" ng-class="{'full-screen-cover': draft.isTitleImageFullScreen}">
+  <section class="receptacle">
+
+  <div id="js-title-img" class="title-img" ui-droppable="" ng-class="{'has-img': draft.titleImage}">
+
+    <div class="upload-controls" data-file-upload="fileuploadOptions" ng-class="{'empty': !draft.titleImage}">
+      <div class="preview-wrapper fileinput-button" ng-show="!active()">
+
+        <div class="entry-title-image" ng-if="draft.titleImage && draft.isTitleImageFullScreen">
+          <div ng-if="draft.titleImage" class="img" ng-style="{'background-image': 'url(' + draft.titleImage + ')'}"></div>
+        </div>
+
+        <img ng-show="draft.titleImage" class="preview" ng-src="{{draft.titleImage}}" ng-if="!draft.isTitleImageFullScreen">
+        <i class="upload-icon icon-ic_phot_camera_alt" ng-show="!draft.titleImage"></i>
+        <input type="file" accept=".jpeg, .jpg, .png" name="upload_file" id="js-title-img-input">
+      </div>
+
+      <div class="ui-progress centered" ng-if="active()">
+        <div class="bar" ng-style="{width: num + '%'}" data-file-upload-progress="progress()"></div>
+      </div>
+
+      <div class="img-edit-options" ng-show="!active() && draft.titleImage">
+        <button class="action-button toggle fileinput-button" ng-click="toggleFullScreen()" ng-if="draft.canTitleImageFullScreen">
+          <i ng-if="draft.isTitleImageFullScreen" class="icon-ic_phot_full_screen2"></i>
+          <i ng-if="!draft.isTitleImageFullScreen" class="icon-ic_phot_full_screen1"></i>
+          <span class="hidden">更改大小</span>
+        </button>
+        <button class="action-button change fileinput-button" onclick="angular.element('#js-title-img-input').click()">
+          <i class="icon-ic_phot_camera_alt"></i>
+          <span class="hidden">更换</span>
+        </button>
+        <button class="action-button delete" ui-confirm="deleteTitleImage()" confirm-message="确定删除题图？">
+          <i class="icon-ic_phot_delete"></i>
+          <span class="hidden">删除</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="title-input-container">
+    <textarea id="js-textarea" ui-textarea-autogrow="" required="" ng-model="draft.title" name="title" class="title" ui-placeholder="请输入标题" ui-tab-trigger="" autofocus="" word-min="2" word-max="{{maxTitleCount}}"></textarea>
+  </div>
+
+  <div id="js-editor-toolbar" class="toolbar-holder" ui-sticky="" data-align="bottom" ng-attr-data-target="{{isTitleImageFullScreen ?'#js-title-img-input' : '#js-textarea'}}" margin="59"></div>
+
+  </section>
+
+  <div class="editable-container">
+    <div id="js-entry-content" class="entry-content editable" ng-model="draft.content" name="content" contenteditable="true" holdertext="请输入正文" content-required="" ui-clean-paste="" ui-scraper="" ui-mention="" ui-events="{input:'onContentChange($event)', focus: 'onContentFocus($event)'}" ui-editor="" editor-toolbar="js-editor-toolbar" word-min="2"></div>
+    <div ui-popover="" popover-options="{container:'#js-entry-content', selector: 'img:not([eeimg])'}">
+      <div class="img-edit-options">
+        <button class="action-button delete" ui-confirm="removeAnchor()" confirm-message="确定删除该图片？">
+          <i class="icon-ic_phot_delete"></i>
+          <span class="hidden">删除</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="publish-section">
+  <ng-include src="'/views/write/publish.html'"></ng-include>
+  <ui-review-button ng-if="draft.id && draft.state != 'published'" postid="draft.id" draft="draft" ui-open="handlePanelOpen()" ui-close="handlePanelClose()"></ui-review-button>
+</div>
+
+
+<ng-include src="'/views/review-comment-panel.html'" ng-if="showReviewCommentPanel">
+</script>
+
+<script type="text/ng-template" id="/views/review-comment-panel.html">
+<div class="review-comment-panel" ng-controller="ReviewCommentCtrl" ng-class="{fold: fold, published: post.state == 'published'}">
+  <div ng-click="handleToggle()" class="pop-panel-title">草稿评论</div>
+  <span ng-if="post.state != 'published'" ng-click="handleToggle()" class="toggle"><i class="icon-ic_unfold"></i></span>
+  <span ng-if="post.state == 'published'" ng-click="handlePanelClose()" class="close"><i class="icon-ic_close"></i></span>
+  <div class="pop-panel-content">
+    <p class="description">文章发表后草稿评论仅文章作者可见</p>
+    <div id="comments" class="entry-comments" ui-post-comments="" comments-href="commentsHref" comments-expanded="true" comments-post-owner="post.author || draft.author || me" comments-status="commentsStatus" ng-if="!isCensoring" comments-placeholder="写下你的评论" time-style="short" disable-scraper="true"></div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/user-item.html">
+<li class="ui-user-item" class="clearfix">
+  <a href="{{user.profileUrl}}" target="_blank" class="user-avatar">
+    <img class="avatar avatar-mid" ng-src="{{user.avatar | avatarUrl:48}}" alt="">
+  </a>
+  <div class="user-intro">
+    <a href="{{user.profileUrl}}" target="_blank">
+      <strong>{{user.name}}</strong>
+    </a>
+    <span ng-if="comment.author.isOrg" class="OrgBadge z-ico-badge16" ui-hover-title="已认证的机构"></span>
+    <span ng-if="user.bio" class="bio">{{user.bio}}</span>
+  </div>
+  <div class="posts-count" ng-if="column">
+    <a ng-if="user.postsCount" href="/{{column.slug}}?author={{user.slug}}">{{user.postsCount}} 篇文章</a>
+    <span class="empty" ng-if="!user.postsCount">{{user.postsCount}} 篇文章</span>
+  </div>
+</li>
+</script>
+
+<script type="text/ng-template" id="/views/navbar/login.html">
+<a href="javascript:;" class="navbar-login btn btn-blue btn-72_32" ng-click="showLoginDialog()">
+  登录
+</a>
+</script>
+
+<script type="text/ng-template" id="/views/navbar/menu.html">
+<div class="navbar-menu-container" ui-menu-button="" ui-disabled="disableMenu">
+  <a href="javascript:;" class="menu-button" aria-label="更多选项">
+    <i class="icon-ic_nav_more"></i>
+  </a>
+  <menu class="menu navbar-menu">
+    <a ng-click="handleGoColumn()" class="menu-item my-column" href="{{column.url}}" ng-repeat="column in me.columns">
+      <img class="avatar avatar-small" ng-src="{{column.avatar | avatarUrl:36}}">{{column.name}}
+    </a>
+    <hr ng-if="me.columns.length">
+    <a ng-if="inWrite && draftId" class="menu-item" href="javascript:;" ng-click="goWrite()">写文章</a>
+    <a class="menu-item" href="/drafts">草稿</a>
+    <a class="menu-item" href="//www.zhihu.com/people/{{me.slug}}/posts" target="_blank">我的文章</a>
+    <a ng-if="!inIndex" class="menu-item" href="/">专栏 · 发现</a>
+    <hr ng-if="inWrite && !hideDelete">
+    <a ng-if="inWrite && !hideDelete" class="menu-item menu-item-delete" href="javascript:;" ui-confirm="deleteDraft()" confirm-message="确认删除该草稿？"><i class="icon-ic_phot_delete"></i>删除草稿</a>
+  </menu>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/navbar/write.html">
+<div class="navbar-write-container">
+  <a href="javascript:;" ng-click="goWrite()">
+    <i class="icon-ic_nav_new"></i>写文章
+  </a>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/settings/nav.html">
+<div class="tabs-nav clearfix" ng-controller="ColumnEditNavCtrl">
+  <a href="{{column.url}}/settings/posts" ng-class="current=='posts' && 'active'" class="tabs-anchor">文章<sub ng-if="newPostNum">{{newPostNum}}</sub></a>
+  <a ng-if="column.acceptSubmission" href="{{column.url}}/settings/contributes" ng-class="current=='contributes' && 'active'" class="tabs-anchor">投稿通知<sub ng-if="newContributeNum">{{newContributeNum}}</sub></a>
+  <a href="{{column.url}}/settings/authors" ng-class="current=='authors' && 'active'" class="tabs-anchor">编辑/作者</a>
+  <a href="{{column.url}}/settings" ng-class="current=='settings' && 'active'" class="tabs-anchor" ng-if="column.creator.slug == me.slug">设置</a>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/write/publish.html">
+<div class="navbar-publish-container" ng-controller="PublishCtrl">
+  <div ui-pop-panel="" ui-open="handlePanelOpen()" ui-close="handlePanelClose()">
+    <a href="javascript:;" class="pop-button" ng-disabled="!canPublish">
+      {{getTitle()}}
+    </a>
+    <div class="pop-panel publish-pop-panel">
+      <div class="pop-panel-title">{{getTitle()}}文章</div>
+
+      <div class="pop-panel-content" ng-show="stage === 'topics'">
+        <div class="description">绑定合适的话题，能方便分类检索，文章也更容易让读者发现。</div>
+        <div class="tag-suggestion-container" ui-tag-input="" ng-model="draft.topics" holdertext="搜索话题..." max-tags="3" after-select="afterSelect(tag)" suggest-options="suggestOptions">
+        </div>
+      </div>
+
+      <div class="pop-panel-content" ng-show="stage === 'column'">
+        <div class="publish-column-item" ng-if="draft.state == 'reviewing'">
+          <label>
+            <span>撤销投递</span>
+            <input ng-model="selectedColumn.slug" name="column" type="radio" value="-1" class="mui-radio">
+          </label>
+        </div>
+        <!-- <div class="publish-column-sep">发布到</div> -->
+        <div class="publish-column-item publish-column-item-tocollection">
+          <label>
+            <span class="title">不发布到专栏</span><span class="description">将发布到个人主页的「文章」栏目下</span>
+            <input ng-model="selectedColumn.slug" name="column" type="radio" value="0" class="mui-radio">
+          </label>
+        </div>
+        <div class="publish-column-item" ng-if="canSubmitColumn.length" ng-repeat="column in canSubmitColumn">
+          <label>
+            <img class="avatar avatar-small" alt="" ng-src="{{column.avatar | avatarUrl: 36}}">{{column.name}}
+            <input ng-model="selectedColumn.slug" name="column" type="radio" value="{{column.slug}}" class="mui-radio">
+          </label>
+        </div>
+      </div>
+
+      <div class="pop-panel-content" ng-show="stage === 'comments'">
+        <div class="publish-column-item publish-column-item-tocollection">
+          <label>
+            <span class="title">开放评论</span><span class="description">所有评论公开显示</span>
+            <input ng-model="$parent.commentPermission" name="commentPermission" type="radio" value="anyone" class="mui-radio">
+          </label>
+        </div>
+        <div class="publish-column-item publish-column-item-tocollection">
+          <label>
+            <span class="title">{{me.isOrg ? '预审评论' : '筛选评论'}}</span>
+            <span class="description">{{me.isOrg ? '评论由您筛选后公开显示' : '评论由我筛选后公开显示'}}</span>
+            <input ng-model="$parent.commentPermission" name="commentPermission" type="radio" value="review" class="mui-radio">
+          </label>
+        </div>
+        <div class="publish-column-item publish-column-item-tocollection">
+          <label>
+            <span class="title">关闭评论</span><span class="description">所有人都不能提交评论</span>
+            <input ng-model="$parent.commentPermission" name="commentPermission" type="radio" value="none" class="mui-radio">
+          </label>
+        </div>
+      </div>
+
+      <div class="pop-panel-buttons" ng-show="!showSuccess">
+        <button class="btn btn-grey-link fleft" ng-if="!stageController.isFirst()" ng-click="backStep($event)">返回</button>
+        <button class="btn btn-blue" ng-disabled="!canSubmit" ng-click="canSubmit && submit()">
+          {{submitBtnText}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/views/write/review.html">
+<div class="navbar-review-container">
+  <div ui-pop-panel="" ui-open="handleReviewOpen()" ui-close="handleReviewClose()" ng-click="handleRootClick($event)">
+    <a href="javascript:;" class="pop-button">
+      <i class="icon-ic_nav_review"></i>邀请预览
+    </a>
+    <div class="pop-panel review-pop-panel">
+      <div class="pop-panel-title">邀请</div>
+
+      <div class="pop-panel-content empty" ng-show="showSuccess">
+        <i class="icon-ic_prompt_done notice-success"></i>
+        {{selectedColumn || selectedFriends.length ? '预览邀请已发送。' : '已取消预览邀请。'}}
+      </div>
+
+      <div class="pop-panel-content" ng-show="!showSuccess">
+        <div class="invite-column" ng-if="showColumn">
+          <p class="sub-description">邀请专栏编辑或好友来预览这篇草稿，他们将可通过草稿评论给出意见。</p>
+          <p class="description">你所在专栏的编辑</p>
+          <div class="column-add" ng-click="handleAddReviewColumn($event)" ng-class="selectedColumn ? 'user-simple-card' : ''" data-title="{{selectedColumn.name}}">
+            <span class="add-button" ng-class="selectedColumn ? 'remove' : 'add'">
+              <img alt="" ng-src="{{selectedColumn.avatar | avatarUrl:36}}" ng-if="selectedColumn" class="avatar-small">
+            </span>
+          </div>
+          <div class="ui-suggest" ng-show="showAvailableColumn">
+            <p class="row-title no-column" ng-if="!myAvailableColumns.length">你没有可以邀请的专栏。</p>
+            <div class="row" ng-repeat="column in myAvailableColumns" ng-click="handleSelectReviewColumn(column)">
+              <img class="avatar-small" ng-src="{{column.avatar | avatarUrl:36}}">{{column.name}}
+            </div>
+          </div>
+        </div>
+        <div class="invite-friends" ng-class="{'no-column': myAvailableColumns && !myAvailableColumns.length}">
+          <p class="sub-description" ng-if="!showColumn">邀请好友来预览这篇草稿，他们将可通过草稿评论给出意见。</p>
+          <p class="description" ng-class="{'unfold': showSelectFriends,'fold': !showSelectFriends, 'normal': !showColumn}" ng-click="showColumn && toggleFriends($event)">相互关注的知乎好友<i ng-if="showColumn" class="icon-ic_unfold"></i></p>
+          <div class="invited-friends-list" ng-show="showSelectFriends || !showColumn">
+            <span class="user-wrapper user-simple-card" data-title="{{user.name}}" ng-repeat="user in selectedFriends">
+              <span class="user remove" ng-click="removeReviewUser(user, $index, $event)">
+                <img alt="{{user.name}}" ng-src="{{user.avatar | avatarUrl:36}}" class="avatar-small">
+              </span>
+            </span>
+            <span ng-if="selectedFriends.length < 10" class="add-button" ng-click="handleAddFriends()"></span>
+          </div>
+          <div class="ui-suggest mui-container-search" ng-show="showSuggestFriends">
+            <input ui-suggest="" type="text" placeholder="搜索相互关注的好友" suggest-options="suggestOptions" class="mui-input mui-nborder">
+          </div>
+        </div>
+      </div>
+      <div class="pop-panel-buttons" ng-show="!showSuccess">
+        <button class="btn btn-blue" ng-disabled="!canSubmit" ng-click="canSubmit && submit()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+<!-- End Templates -->
+
+</body>
+</html>
